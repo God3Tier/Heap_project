@@ -1,6 +1,11 @@
+/target/
+
+.classpath
+.idea/
+.settings/
+.project
+
 .env
-target
-.idea
 .project
 HELP.md
 application.properties
