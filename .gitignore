@@ -8,4 +8,5 @@
 .env
 .project
 HELP.md
-application.properties
+node_modules/
+DepricatedStallRepo.txt
