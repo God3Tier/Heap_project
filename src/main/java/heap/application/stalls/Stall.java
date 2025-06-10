@@ -22,7 +22,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
-import heap.application.Meal.MealType;
+import heap.application.stalls.Meal.MealType;
 
 @Entity
 @Table(name = "stall")

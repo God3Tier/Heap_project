@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import heap.application.Meal.MealTypeRepo;
-import heap.application.Meal.MealType;
-import heap.application.Meal.Meals;
+import heap.application.stalls.Meal.MealTypeRepo;
+import heap.application.stalls.Meal.MealType;
+import heap.application.stalls.Meal.Meals;
 import heap.application.stalls.StallRepo;
 import heap.application.stalls.Stalls;
 import heap.application.stalls.Stall;
@@ -36,7 +36,7 @@ public class Loader implements CommandLineRunner{
     }
     
     public void loadStalls() {
-        try (InputStream inputStream = getClass().getResourceAsStream("/data/stalls.json")) {
+        try (InputStream inputStream = getClass().getResourceAsStream("/fakedata/stalls.json")) {
             Stalls allStalls = objectMapper.readValue(inputStream, Stalls.class);
             log.info("Reading {} runs from JSON data for in mem usage", allStalls.stalls().size());
             log.info("{}", allStalls.stalls());
@@ -53,7 +53,7 @@ public class Loader implements CommandLineRunner{
         }
     }
     public void loadMeal() {
-        try (InputStream inputStream = getClass().getResourceAsStream("/data/meal_loader.json")) {
+        try (InputStream inputStream = getClass().getResourceAsStream("/fakedata/meal_loader.json")) {
             Meals allMeals = objectMapper.readValue(inputStream, Meals.class);
             log.info("{}", allMeals);
             log.info("Reading {} runs from JSON data for in mem usage", allMeals.meals().size());

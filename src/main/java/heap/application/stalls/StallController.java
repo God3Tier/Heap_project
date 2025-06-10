@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import heap.application.Meal.MealType;
-import heap.application.Meal.MealTypeRepo;
+import heap.application.stalls.Meal.MealType;
+import heap.application.stalls.Meal.MealTypeRepo;
 
 @RestController
 @RequestMapping("")

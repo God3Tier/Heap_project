@@ -21,18 +21,14 @@ public class MyApplication {
     private static final Logger log = LoggerFactory.getLogger(MyApplication.class);
     
 	public static void main(String[] args) {
-        // System.setProperty("spring.datasource.username", dotenv.get("DATABASE_USER"));
-        // System.setProperty("spring.datasource.password", dotenv.get("DATABASE_PASSWORD"));
-        // System.setProperty("spring.datasource.url",url);
 		SpringApplication.run(MyApplication.class, args);
 	}
 	
 	@Bean
 	public DataSource dataSource() {
         Dotenv dotenv = Dotenv.load();
-        String url = "spring.datasource.url=jdbc:postgresql://" + dotenv.get("DATABASE_HOST") + ":" + dotenv.get("DATABASE_PORT") + "/" + dotenv.get("DATABASE_NAME");
         return DataSourceBuilder.create()
-            .url("jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres?user=postgres.hagiswlsyabukbhihldd&password=" + dotenv.get("DATABASE_PASSWORD"))
+            .url(dotenv.get("DATABASE_URL") + dotenv.get("DATABASE_PASSWORD"))
             .username(dotenv.get("DATABASE_USER"))
             .password(dotenv.get("DATABASE_PASSWORD"))
             .driverClassName("org.postgresql.Driver")
