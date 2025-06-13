@@ -13,4 +13,4 @@ public interface MealTypeRepo extends JpaRepository<MealType, Integer> {
     public Optional<MealType> findById(Integer id);
     @Query("SELECT m FROM MealType m JOIN FETCH m.stall WHERE m.mealName = :mealName")
     public Optional<MealType> findByMealName(@Param("mealName") String mealName);
-}c
+}
