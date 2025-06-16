@@ -1,35 +1,32 @@
-package heap.application.stalls;
+package heap.application.controller;
 
-import java.net.http.HttpResponse;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import heap.application.stalls.Meal.MealType;
-import heap.application.stalls.Meal.MealTypeRepo;
+import heap.application.meal.Meal;
+import heap.application.meal.MealRepo;
+import heap.application.stalls.Stall;
+import heap.application.stalls.StallRepo;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/request")
 public class StallController {
-    
     private final StallRepo stallRepo;
-    private final MealTypeRepo mealTypeRepo;
+    private final MealRepo mealRepo;
     
     private final Logger log = LoggerFactory.getLogger(StallController.class);
     
-    public StallController(StallRepo stallRepo, MealTypeRepo mealTypeRepo) {
+    public StallController(StallRepo stallRepo, MealRepo mealRepo) {
         this.stallRepo = stallRepo;
-        this.mealTypeRepo = mealTypeRepo;
+        this.mealRepo = mealRepo;
     }
     
     @GetMapping("/stalls")
@@ -38,21 +35,21 @@ public class StallController {
     }
     
     @GetMapping("/meals")
-    public List<MealType> selectAllMeals() {
-        return mealTypeRepo.findAll();
+    public List<Meal> selectAllMeals() {
+        return mealRepo.findAll();
     } 
     
     
     // how to handle input from frontend using springboot? 
     // Holy this can be cut down
     // When we redirect, is it expected for 
-    @GetMapping("/{mealType}/{location}/{budget}/{rating}")
+    @GetMapping("/{location}/{budget}/{mealType}/{rating}")
     public List<Stall> getValidRestaurants(@PathVariable String mealType, @PathVariable String location, @PathVariable String budget, @PathVariable String rating) {
         List<Stall> meals;
         if (mealType.toLowerCase().equals("all")) {
             meals = stallRepo.findAll();
         } else {
-            meals = stallRepo.findByMealTypes_MealId(mealTypeRepo.findByMealName(mealType).get().getMealId());
+            meals = stallRepo.findByMealTypes_MealId(mealRepo.findByMealName(mealType).get().mealId());
         }
         
         List<Stall> locationList; 
@@ -82,6 +79,7 @@ public class StallController {
                     .distinct()
                     .filter(a -> locationList.contains(a)&& budgetList.contains(a) && ratingList.contains(a))
                     .collect(Collectors.toCollection(ArrayList::new));
-
     }
 }
+
+

@@ -1,7 +1,5 @@
 package heap.application.stalls;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,23 +7,28 @@ import org.springframework.lang.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import heap.application.meal.Meal;
+import heap.application.review.Review;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-
-import heap.application.stalls.Meal.MealType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "stall")
+@Getter
+@Setter 
 public class Stall implements Comparable<Stall> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,62 +48,21 @@ public class Stall implements Comparable<Stall> {
     private String name;
     @ManyToMany
     @JoinTable(
-        name = "stall_mealtype",
+        name = "stall_meal",
         joinColumns = @JoinColumn(name = "stall_id"),
-        inverseJoinColumns = @JoinColumn(name = "mealtype_id")
+        inverseJoinColumns = @JoinColumn(name = "meal_id")
     )
-    private List<MealType> mealTypes;
+    private List<Meal> meals;
     @JsonProperty("meal_ids")
-    @Transient
     private List<Integer> mealIds;
+    @OneToMany
+    @JoinTable(
+        name = "review_stall",
+        joinColumns = @JoinColumn(name="stall_id"),
+        inverseJoinColumns = @JoinColumn(name="review_id")
+    )
+    private List<Review> reviews;
     
-	public Integer getStallId() {
-		return stallId;
-	}
-	public void setStallId(final Integer stallId) {
-		this.stallId = stallId;
-	}
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(final String location) {
-		this.location = location;
-	}
-	public Integer getRating() {
-		return rating;
-	}
-	public void setRating(final Integer rating) {
-		this.rating = rating;
-	}
-	public Double getPrice() {
-		return price;
-	}
-	public void setPrice(final Double price) {
-		this.price = price;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(final String name) {
-		this.name = name;
-	}
-	
-	public List<MealType> getMealTypes() {
-        return mealTypes;
-	}
-
-    public void setMealTypes(final List<MealType> mealTypes) {
-        this.mealTypes = mealTypes;
-    }
-
-	
-	public List<Integer> getMealIds() {
-		return mealIds;
-	}
-	public void setMealIds(final List<Integer> mealIds) {
-		this.mealIds = mealIds;
-	}
-	
 	@Override
 	public String toString() {
         return "Stall{" +
@@ -110,14 +72,15 @@ public class Stall implements Comparable<Stall> {
                 ", price=" + price +
                 ", name='" + name + '\'' +
                 ", mealIds=" + mealIds +
-                ", mealsCount=" + (mealTypes != null ? mealTypes.size() : 0) +
+                ", mealsCount=" + (meals != null ? meals.size() : 0) +
+                ",reviews= " + (reviews != null ? reviews.size() : 0) + 
                 '}';
     }
 	@Override
 	public boolean equals(final Object o) {
 	    if (o instanceof final Stall s2) {
 			return this.name == s2.name && this.stallId == s2.stallId && this.location == s2.location
-			           && this.mealTypes.containsAll(s2.mealTypes) && s2.mealTypes.containsAll(this.mealTypes) && this.price == s2.price && this.rating == s2.rating;
+			           && this.meals.containsAll(s2.meals) && s2.meals.containsAll(this.meals) && this.price == s2.price && this.rating == s2.rating;
 		}
 		return false;
 	}
@@ -125,7 +88,7 @@ public class Stall implements Comparable<Stall> {
 	
 	@Override 
 	public int hashCode() {
-	    return Objects.hash(name, stallId, location, price, mealTypes);
+	    return Objects.hash(name, stallId, location, price, meals);
 	}
 	
 	@Override
@@ -135,9 +98,5 @@ public class Stall implements Comparable<Stall> {
 		}
 		
 		return s2.rating - this.rating;
-	}
-
-	public void setMeals(final List<MealType> mealTypes) {
-		this.mealTypes = mealTypes;
 	}
 }

@@ -16,5 +16,5 @@ public interface StallRepo extends JpaRepository <Stall, Integer> {
     
     List<Stall> findByPriceLessThanEqual(Double price);
     
-    List<Stall> findByMealTypes_MealId(Integer mealId);
+    List<Stall> findByMeals_MealId(Integer mealId);
 }
