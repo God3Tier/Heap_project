@@ -59,16 +59,16 @@ public class Loader /* implements CommandLineRunner */ {
         }
     }
     
-    @Override
-    public void run(String... args) throws Exception {
-        if (mealRepo.count() == 0) {
-            loadMeal();
-        }
+    // @Override
+    // public void run(String... args) throws Exception {
+    //     if (mealRepo.count() == 0) {
+    //         loadMeal();
+    //     }
         
-        log.info("meals successfully loaded");
-        if (stallRepo.count() == 0) {
-            loadStalls();
-        }
-        log.info("stalls successfully loaded");
-    }
+    //     log.info("meals successfully loaded");
+    //     if (stallRepo.count() == 0) {
+    //         loadStalls();
+    //     }
+    //     log.info("stalls successfully loaded");
+    // }
 }

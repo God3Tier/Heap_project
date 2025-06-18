@@ -56,11 +56,7 @@ public class Stall implements Comparable<Stall> {
     @JsonProperty("meal_ids")
     private List<Integer> mealIds;
     @OneToMany
-    @JoinTable(
-        name = "review_stall",
-        joinColumns = @JoinColumn(name="stall_id"),
-        inverseJoinColumns = @JoinColumn(name="review_id")
-    )
+    @JoinColumn(name = "stall_id")
     private List<Review> reviews;
     
 	@Override
@@ -73,7 +69,8 @@ public class Stall implements Comparable<Stall> {
                 ", name='" + name + '\'' +
                 ", mealIds=" + mealIds +
                 ", mealsCount=" + (meals != null ? meals.size() : 0) +
-                ",reviews= " + (reviews != null ? reviews.size() : 0) + 
+                ", reviews" + reviews +
+                ",reviewCount " + (reviews != null ? reviews.size() : 0) + 
                 '}';
     }
 	@Override

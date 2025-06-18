@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MealRepo extends JpaRepository<Meal, Integer> {
-    public Optional<Meal> findById(Integer id);
+    public Optional<Meal> findByMealId(Integer mealId);
     public Optional<Meal> findByMealName(@Param("mealName") String mealName);
 }

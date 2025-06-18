@@ -15,7 +15,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 @RestController
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = {"heap.application.stalls", "heap.application.Meal"})
+@EnableJpaRepositories(basePackages = {"heap.application.stalls", "heap.application.meal", "heap.application.user", "heap.application.review"})
 public class MyApplication {
     
     private static final Logger log = LoggerFactory.getLogger(MyApplication.class);

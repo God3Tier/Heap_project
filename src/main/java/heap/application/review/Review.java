@@ -1,11 +1,12 @@
 package heap.application.review;
 
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,15 +19,13 @@ import heap.application.user.User;
 @Table(name = "review")
 public class Review {
     @Id
-    private Integer rev_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer reviewId;
     @ManyToOne
-    @JoinTable(name = "stall_id")
+    @JoinColumn(name = "stall_id")
     private Stall stall;
-    // @OneToMany(mappedBy="meals")
-    // private Integer meal_id;
-    
     @ManyToOne
-    @JoinTable(name = "user")
+    @JoinColumn(name = "app_user")
     private User user;
-    
+    String reviewDescription;
 }
