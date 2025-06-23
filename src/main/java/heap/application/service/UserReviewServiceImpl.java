@@ -1,6 +1,7 @@
 package heap.application.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,6 @@ public class UserReviewServiceImpl implements UserReviewService {
     /*
      * Getters
      */
-
     public List<Review> getAllReviews(Integer id) {
         User user = userRepo.findByUserId(id).orElseThrow(() -> new IllegalArgumentException("No user found"));
         return user.getReviews();
@@ -38,6 +38,11 @@ public class UserReviewServiceImpl implements UserReviewService {
     public List<Stall> getFavourites(Integer id) {
         User user = userRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
         return user.getFavourites();
+    }
+
+    public List<Review> getReviews (Integer id) {
+        User user = userRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("No user found"));
+        return user.getReviews();
     }
 
     /*
@@ -56,7 +61,7 @@ public class UserReviewServiceImpl implements UserReviewService {
      * deleters
      */
     public void deleteUser(Integer id) {
-        
+
     }
 
 }

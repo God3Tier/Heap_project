@@ -66,6 +66,7 @@ public class Stall implements Comparable<Stall> {
     @JoinColumn(name = "stall_id")
     private List<Review> reviews;
 
+    @ManyToMany
     @JoinTable (
         name = "favourites",
         joinColumns = @JoinColumn(name = "stall_id"),
