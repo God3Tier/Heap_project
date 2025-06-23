@@ -3,6 +3,7 @@ package heap.application.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +21,23 @@ public class UserReviewController {
         this.userReviewService = userReviewService;
     }
     
+    /*
+     * Post
+     */
     @PostMapping("/{id}")
     public ResponseEntity<?> addReview(@PathVariable int id, Review review) {
         userReviewService.addReview(id, review);
         return new ResponseEntity<>("Review has been added succesfully", HttpStatus.OK);
     }
-    
+
+    /*
+     * Delete
+     * TODO: To be functional when spring security is set up
+     */
+    @DeleteMapping("/user/{id}") 
+    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+        userReviewService.deleteUser(id);
+        return new ResponseEntity<>("User has been deleted succesfully", HttpStatus.OK);
+    }
 
 }

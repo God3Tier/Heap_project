@@ -19,6 +19,12 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+
+/*
+ * Meal is a class that holds the different types of meals that can be filtered by stall
+ * 
+ * @autthor Joseph
+ */
 @Entity
 @Table(name = "mealname")
 @Access(AccessType.FIELD)

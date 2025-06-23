@@ -14,4 +14,8 @@ public interface StallService {
     
     // Updaters
     public void updateNewReview(Integer stallId, Review review);
+
+    // deleters
+    public void deleteStall(Integer stallId);
+    public void deleteMeal(Integer mealId);
 }

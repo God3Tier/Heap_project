@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import heap.application.meal.Meal;
 import heap.application.review.Review;
-
+import heap.application.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,18 +34,23 @@ public class Stall implements Comparable<Stall> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stall_id")
     private Integer stallId;
+
     @NonNull
     @Column(name = "location")
     private String location;
+
     @Positive
     @Column(name = "rating")
     private Integer rating;
+
     @Positive
     @Column(name = "price")
     private Double price;
+
     @NotNull
     @Column(name = "name")
     private String name;
+
     @ManyToMany
     @JoinTable(
         name = "stall_meal",
@@ -53,15 +58,24 @@ public class Stall implements Comparable<Stall> {
         inverseJoinColumns = @JoinColumn(name = "meal_id")
     )
     private List<Meal> meals;
+
     @JsonProperty("meal_ids")
     private List<Integer> mealIds;
+
     @OneToMany
     @JoinColumn(name = "stall_id")
     private List<Review> reviews;
+
+    @JoinTable (
+        name = "favourites",
+        joinColumns = @JoinColumn(name = "stall_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> likes;
     
 	@Override
 	public String toString() {
-        return "Stall{" +
+        return "Stall [" +
                 "stallId=" + stallId +
                 ", location='" + location + '\'' +
                 ", rating=" + rating +
@@ -71,7 +85,7 @@ public class Stall implements Comparable<Stall> {
                 ", mealsCount=" + (meals != null ? meals.size() : 0) +
                 ", reviews" + reviews +
                 ",reviewCount " + (reviews != null ? reviews.size() : 0) + 
-                '}';
+                ']';
     }
 	@Override
 	public boolean equals(final Object o) {

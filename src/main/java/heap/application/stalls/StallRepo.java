@@ -19,6 +19,6 @@ public interface StallRepo extends JpaRepository <Stall, Integer> {
     List<Stall> findByPriceLessThanEqual(Double price);
     List<Stall> findByMeals_MealId(Integer mealId);
     
-    // @Query("Select r.review_id, r.stall_id, r.user_id, r.reviewDescription from review r, stall s where r.sid = :stallId")
+    // @Query("Select r.review_id, r.stall_id, r.user_id, r.review from review r, stall s where r.sid = :stallId")
     // List<Review> getAllReviews(@Param("stallId") Integer stallId);
 }

@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 
 import heap.application.review.Review;
 import heap.application.review.ReviewRepo;
+import heap.application.stalls.Stall;
 import heap.application.user.User;
 import heap.application.user.UserRepo;
 
@@ -25,13 +26,24 @@ public class UserReviewServiceImpl implements UserReviewService {
         this.userRepo = userRepo;
         this.reviewRepo = reviewRepo;
     }
-    
+    /*
+     * Getters
+     */
+
     public List<Review> getAllReviews(Integer id) {
         User user = userRepo.findByUserId(id).orElseThrow(() -> new IllegalArgumentException("No user found"));
         return user.getReviews();
     }
-    
-    // Updater
+
+    public List<Stall> getFavourites(Integer id) {
+        User user = userRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return user.getFavourites();
+    }
+
+    /*
+     * Updaters
+     */
+
     @Transactional
     public void addReview(int userId, Review review) {
         User user = userRepo.findByUserId(userId)
@@ -39,10 +51,12 @@ public class UserReviewServiceImpl implements UserReviewService {
                             
         user.getReviews().add(review);     
     }
-    
-    // public void createUser() {
+
+    /*
+     * deleters
+     */
+    public void deleteUser(Integer id) {
         
-    // }
-    
-    
+    }
+
 }
