@@ -56,6 +56,6 @@ public class UserReviewController {
     public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
         userReviewService.deleteUser(id);
         return new ResponseEntity<>("User has been deleted succesfully", HttpStatus.OK);
-    }
+    } 
 
 }
