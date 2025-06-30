@@ -36,21 +36,6 @@ public class MyApplication {
             .driverClassName("org.postgresql.Driver")
             .build();
     }
-<<<<<<< HEAD
-=======
-
-    @Bean 
-    public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:5173");
-			}
-		};
-	}
-}
->>>>>>> main
-
 
     @Bean 
     public WebMvcConfigurer corsConfigurer() {
