@@ -42,9 +42,9 @@ public class UserReviewController {
     /*
      * Post
      */
-    @PostMapping("/{id}")
-    public ResponseEntity<?> addReview(@PathVariable int id, Review review) {
-        userReviewService.addReview(id, review);
+    @PostMapping("/{userId}")
+    public ResponseEntity<?> addReview(@PathVariable Integer userId, Review review) {
+        userReviewService.addReview(userId, review);
         return new ResponseEntity<>("Review has been added succesfully", HttpStatus.OK);
     }
 

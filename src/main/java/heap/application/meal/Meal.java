@@ -16,8 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 
 /*
@@ -28,8 +27,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "mealname")
 @Access(AccessType.FIELD)
-@Getter
-@Setter
+@Data
 public class Meal implements Comparable<Meal> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

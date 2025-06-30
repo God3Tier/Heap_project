@@ -7,15 +7,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import heap.application.stalls.Stall;
 import heap.application.user.User;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "review")
 public class Review {
     @Id

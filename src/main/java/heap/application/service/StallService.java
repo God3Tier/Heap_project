@@ -7,6 +7,7 @@ import heap.application.review.Review;
 import heap.application.stalls.Stall;
 
 public interface StallService {
+    
     // Getters 
     public List<Stall> getFilteredResult(FilterDTO filterDTO);
     public List<Stall> getAllStalls();

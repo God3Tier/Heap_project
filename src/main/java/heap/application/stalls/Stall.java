@@ -22,13 +22,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
 
 @Entity
 @Table(name = "stall")
-@Getter
-@Setter 
+@Data
 public class Stall implements Comparable<Stall> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import heap.application.dto.FilterDTO;
@@ -34,21 +35,21 @@ public class StallMealController {
     }
     
     @GetMapping("/filter")
-    public List<Stall> getValidRestaurants(FilterDTO filterDTO) {
+    public List<Stall> getValidRestaurants(@RequestParam FilterDTO filterDTO) {
         return stallService.getFilteredResult(filterDTO);
     }
 
     /*
      * Deleters
      */
-    @DeleteMapping("/delete/stalls/{id}") 
-    public ResponseEntity<?> deleteStall(Integer id) {
+    @DeleteMapping("/meal") 
+    public ResponseEntity<?> deleteStall(@RequestParam Integer id) {
         stallService.deleteStall(id);
         return new ResponseEntity<>("Successfuly deleted stall", HttpStatus.OK);
     } 
 
-    @DeleteMapping("/delete/meal/{id}")
-    public ResponseEntity<?> deleteMeal(Integer id) {
+    @DeleteMapping("/stall")
+    public ResponseEntity<?> deleteMeal(@RequestParam Integer id) {
         stallService.deleteMeal(id);
         return new ResponseEntity<>("Successfuly deleted stall", HttpStatus.OK);
     }
