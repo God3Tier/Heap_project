@@ -1,4 +1,4 @@
-package heap.application.stalls.Meal;
+package heap.application.meal;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,50 +16,36 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+
+/*
+ * Meal is a class that holds the different types of meals that can be filtered by stall
+ * 
+ * @autthor Joseph
+ */
 @Entity
-@Table(name = "mealtype")
+@Table(name = "mealname")
 @Access(AccessType.FIELD)
-public class MealType implements Comparable<MealType> {
+@Data
+public class Meal implements Comparable<Meal> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "meal_id")
     private Integer mealId;
     @JsonProperty("meal_name")
     private String mealName;
-    @ManyToMany(mappedBy = "mealTypes")
+    @ManyToMany(mappedBy = "meals")
     @JsonIgnore
     private List<Stall> stall;
     
-    public MealType() {}
+    public Meal() {}
     
-    public MealType(Integer mealId, String mealName, List<Stall> stall) {
+    public Meal(Integer mealId, String mealName, List<Stall> stall) {
         this.mealId = mealId;
         this.mealName = mealName;
         this.stall = stall;
     }
-    
-	public Integer getMealId() {
-		return mealId;
-	}
-	public void setMealId(Integer mealId) {
-		this.mealId = mealId;
-	}
-	public String getMealName() {
-		return mealName;
-	}
-	public void setMealName(String mealName) {
-		this.mealName = mealName;
-	}
-    
-    
-	public List<Stall> getStall() {
-		return stall;
-	}
-
-	public void setStall(List<Stall> stall) {
-		this.stall = stall;
-	}
 
 	@Override 
 	public int hashCode() {
@@ -68,7 +54,7 @@ public class MealType implements Comparable<MealType> {
 	
 	@Override
 	public boolean equals(Object o) {
-	    if (o instanceof MealType m) {
+	    if (o instanceof Meal m) {
 			return this.mealId == m.mealId && this.mealName == m.mealName && this.stall.equals(m.stall);
 		}
 	
@@ -76,7 +62,7 @@ public class MealType implements Comparable<MealType> {
 	}
 	
 	@Override
-	public int compareTo(MealType m2) {
+	public int compareTo(Meal m2) {
 	    return this.mealId - m2.mealId;
 	}
 }

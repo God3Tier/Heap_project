@@ -13,66 +13,62 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import heap.application.stalls.Meal.MealTypeRepo;
-import heap.application.stalls.Meal.MealType;
-import heap.application.stalls.Meal.Meals;
 import heap.application.stalls.StallRepo;
-import heap.application.stalls.Stalls;
+import heap.application.meal.Meal;
+import heap.application.meal.MealRepo;
 import heap.application.stalls.Stall;
 
-@Component
-public class Loader implements CommandLineRunner{
+// @Component
+public class Loader /* implements CommandLineRunner */ {
     
     private final static Logger log = LoggerFactory.getLogger(Loader.class);
     private final ObjectMapper objectMapper;
     
-    private final MealTypeRepo mealTypeRepo;
+    private final MealRepo mealRepo;
     private final StallRepo stallRepo;
     
-    public Loader(ObjectMapper objectMapper, MealTypeRepo mealTypeRepo, StallRepo stallRepo) {
+    public Loader(ObjectMapper objectMapper, MealRepo mealRepo, StallRepo stallRepo) {
         this.objectMapper = objectMapper;
-        this.mealTypeRepo = mealTypeRepo;
+        this.mealRepo = mealRepo;
         this.stallRepo = stallRepo;
     }
     
     public void loadStalls() {
         try (InputStream inputStream = getClass().getResourceAsStream("/fakedata/stalls.json")) {
-            Stalls allStalls = objectMapper.readValue(inputStream, Stalls.class);
-            log.info("Reading {} runs from JSON data for in mem usage", allStalls.stalls().size());
-            log.info("{}", allStalls.stalls());
-            for (Stall stall : allStalls.stalls()) {
-                List<MealType> mealTypes = stall.getMealIds().stream()
-                                                             .map(a -> mealTypeRepo.findById(a)
+            Stall[] stalls = objectMapper.readValue(inputStream, Stall[].class);
+            log.info("Reading {} runs from JSON data for in mem usage", stalls.length);
+            for (Stall stall : stalls) {
+                List<Meal> mealTypes = stall.getMealIds().stream()
+                                                             .map(a -> mealRepo.findById(a)
                                                                  .orElseThrow(()-> new RuntimeException("meal type not found")))
                                                              .collect(Collectors.toCollection(ArrayList::new));
-                stall.setMealTypes(mealTypes);
+                stall.setMeals(mealTypes);
             }
-            stallRepo.saveAll(allStalls.stalls());
+            stallRepo.saveAll(List.of(stalls));
         } catch (IOException e) {
             throw new RuntimeException("Unable to read file ", e);
-        }
+        } 
     }
     public void loadMeal() {
         try (InputStream inputStream = getClass().getResourceAsStream("/fakedata/meal_loader.json")) {
-            Meals allMeals = objectMapper.readValue(inputStream, Meals.class);
-            log.info("{}", allMeals);
-            log.info("Reading {} runs from JSON data for in mem usage", allMeals.meals().size());
-            mealTypeRepo.saveAll(allMeals.meals());
+            Meal[] meals = objectMapper.readValue(inputStream, Meal[].class);
+            log.info("Reading {} runs from JSON data for in mem usage", meals.length);
+            mealRepo.saveAll(List.of(meals));
         } catch (IOException e) {
             throw new RuntimeException("Unable to read file ", e);
         }
     }
     
-    @Override
-    public void run(String... args) throws Exception {
-        if (mealTypeRepo.count() == 0) {
-            loadMeal();
-        }
+    // @Override
+    // public void run(String... args) throws Exception {
+    //     if (mealRepo.count() == 0) {
+    //         loadMeal();
+    //     }
         
-        log.info("meals successfully loaded");
-        if (stallRepo.count() == 0) {
-            loadStalls();
-        }
-        log.info("stalls successfully loaded");
-    }
+    //     log.info("meals successfully loaded");
+    //     if (stallRepo.count() == 0) {
+    //         loadStalls();
+    //     }
+    //     log.info("stalls successfully loaded");
+    // }
 }
