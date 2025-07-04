@@ -29,12 +29,15 @@ import lombok.Data;
 @Access(AccessType.FIELD)
 @Data
 public class Meal implements Comparable<Meal> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "meal_id")
     private Integer mealId;
+
     @JsonProperty("meal_name")
     private String mealName;
+    
     @ManyToMany(mappedBy = "meals")
     @JsonIgnore
     private List<Stall> stall;

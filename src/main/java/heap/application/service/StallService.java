@@ -14,7 +14,7 @@ public interface StallService {
     public List<Review> getAllReviews(Integer stallId);
     
     // Updaters
-    public void updateNewReview(Integer stallId, Review review);
+    public void updateNewReview(Integer stallId);
 
     // deleters
     public void deleteStall(Integer stallId);

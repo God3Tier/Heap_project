@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import heap.application.dto.ReviewDTO;
 import heap.application.review.Review;
 import heap.application.service.UserReviewService;
 import heap.application.stalls.Stall;
-import heap.application.user.User;
 
 @Controller
 @RequestMapping("/user")
@@ -42,9 +42,9 @@ public class UserReviewController {
     /*
      * Post
      */
-    @PostMapping("/{userId}")
-    public ResponseEntity<?> addReview(@PathVariable Integer userId, Review review) {
-        userReviewService.addReview(userId, review);
+    @PostMapping("/update_user")
+    public ResponseEntity<?> addReview(ReviewDTO reviewDTO) {
+        userReviewService.addReview(reviewDTO);
         return new ResponseEntity<>("Review has been added succesfully", HttpStatus.OK);
     }
 
@@ -52,7 +52,7 @@ public class UserReviewController {
      * Delete
      * TODO: To be functional when spring security is set up
      */
-    @DeleteMapping("/user/{id}") 
+    @DeleteMapping("delete/user/{id}") 
     public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
         userReviewService.deleteUser(id);
         return new ResponseEntity<>("User has been deleted succesfully", HttpStatus.OK);

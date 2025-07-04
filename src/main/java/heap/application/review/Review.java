@@ -19,11 +19,16 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reviewId;
+
+    private Integer rating;
+
     @ManyToOne
     @JoinColumn(name = "stall_id")
     private Stall stall;
+
     @ManyToOne
     @JoinColumn(name = "app_user")
     private User user;
-    String reviewDescription;
+
+    private String reviewDescription;
 }

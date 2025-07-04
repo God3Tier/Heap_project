@@ -35,7 +35,8 @@ public class StallServiceImpl implements StallService {
     }
 
     public List<Review> getAllReviews(Integer stallId) {
-        Stall stall = stallRepo.findByStallId(stallId).orElseThrow(() -> new IllegalArgumentException("Stall not found"));
+        Stall stall = stallRepo.findByStallId(stallId)
+                               .orElseThrow(() -> new IllegalArgumentException("Stall not found"));
         return stall.getReviews();
     }
 
@@ -44,7 +45,8 @@ public class StallServiceImpl implements StallService {
         if (filterDTO.mealType().toLowerCase().equals("all")) {
             meals = stallRepo.findAll();
         } else {
-            Meal meal = mealRepo.findByMealName(filterDTO.mealType()).orElseThrow(() -> new IllegalArgumentException("no meal type found"));
+            Meal meal = mealRepo.findByMealName(filterDTO.mealType())
+                                .orElseThrow(() -> new IllegalArgumentException("no meal type found"));
             meals = stallRepo.findByMeals_MealId(meal.getMealId());
         }
         
@@ -80,11 +82,18 @@ public class StallServiceImpl implements StallService {
      */
     
     @Transactional
-    public void updateNewReview(Integer stallId, Review review) {
-        Stall stall = stallRepo.findByStallId(stallId).orElseThrow(() -> new IllegalArgumentException("Stall not found"));
-        stall.getReviews().add(review);
+    public void updateNewReview(Integer stallId) {
+        Stall stall = stallRepo.findByStallId(stallId)
+                               .orElseThrow(() -> new IllegalArgumentException("Stall not found"));
+        
+        int i = stall.getReviews().stream()
+                                  .map(a -> a.getRating())
+                                  .reduce(0, (a, b) -> a + b);
+        
+        stall.setRating(i);
+        stallRepo.save(stall);
     }
-    
+
     /*
      * deleters
      */

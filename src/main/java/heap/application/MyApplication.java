@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import jakarta.validation.constraints.NotNull;
 
 @RestController
 @SpringBootApplication
@@ -41,7 +42,7 @@ public class MyApplication {
     public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
-			public void addCorsMappings(CorsRegistry registry) {
+			public void addCorsMappings(@NotNull CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("http://localhost:5173");
 			}
 		};

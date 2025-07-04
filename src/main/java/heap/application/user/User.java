@@ -5,7 +5,12 @@ import java.util.Objects;
 
 import heap.application.review.Review;
 import heap.application.stalls.Stall;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,10 +28,16 @@ public class User implements Comparable<User> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
-    private String name;
+
+    @Column(unique = true)
+    private String username;
+
+    private String passHash;
+
     @OneToMany
     @JoinColumn(name="user_id")
     private List<Review> reviews;
+
     @ManyToMany
     @JoinTable(
         name = "favourites",
@@ -35,16 +46,20 @@ public class User implements Comparable<User> {
     )
     private List<Stall> favourites;
     
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "role")
+    private List<Roles> role;
 
     
     @Override
     public int hashCode() {
-        return Objects.hash(name, userId, reviews);
+        return Objects.hash(username, userId, reviews);
     }
     
     @Override
     public String toString() {
-        return "User [userId=" + userId + ", name=" + name + ", reviews=" + reviews + ", favourites=" + favourites
+        return "User [userId=" + userId + ", username=" + username + ", reviews=" + reviews + ", favourites=" + favourites
                 + "]";
     }
 

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Integer> {
+
     // getters
     public Optional<User> findByUserId(Integer userId);
+    public Optional<User> findByUsername(String username);
 }

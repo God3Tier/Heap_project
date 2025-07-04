@@ -72,21 +72,9 @@ public class Stall implements Comparable<Stall> {
         inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<User> likes;
+
+    private String address;
     
-	@Override
-	public String toString() {
-        return "Stall [" +
-                "stallId=" + stallId +
-                ", location='" + location + '\'' +
-                ", rating=" + rating +
-                ", price=" + price +
-                ", name='" + name + '\'' +
-                ", mealIds=" + mealIds +
-                ", mealsCount=" + (meals != null ? meals.size() : 0) +
-                ", reviews" + reviews +
-                ",reviewCount " + (reviews != null ? reviews.size() : 0) + 
-                ']';
-    }
 	@Override
 	public boolean equals(final Object o) {
 	    if (o instanceof final Stall s2) {

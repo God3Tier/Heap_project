@@ -1,0 +1,71 @@
+package heap.application.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
+
+import heap.application.security.filter.SecurityAuthenticationFilter;
+
+@EnableMethodSecurity
+@Configuration
+public class SecurityConfig {
+
+    private final SecurityAuthenticationFilter securityAuthenticationFilter;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final AccessDeniedHandler accessDeniedHandler;
+
+    public SecurityConfig(
+            SecurityAuthenticationFilter securityAuthenticationFilter,
+            AuthenticationEntryPoint authenticationEntryPoint,
+            AccessDeniedHandler accessDeniedHandler) {
+
+        this.securityAuthenticationFilter = securityAuthenticationFilter;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.accessDeniedHandler = accessDeniedHandler;
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
+        http.addFilterBefore(securityAuthenticationFilter, AuthorizationFilter.class)
+            .authorizeHttpRequests(
+                matcher -> 
+                    matcher.requestMatchers(
+                        "/filter",
+                        "/stalls",
+                        "/api/auth/login"
+                    ).permitAll()
+            ).authorizeHttpRequests(
+                matcher -> 
+                    matcher.requestMatchers(
+                        "/logout",
+                        "/delete/**"
+                    ).authenticated()
+            ).authorizeHttpRequests(
+                matcher -> 
+                matcher.anyRequest().hasRole("ADMIN")
+            ).sessionManagement(
+                 configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            ).exceptionHandling(
+                customizer -> 
+                    customizer
+                        .accessDeniedHandler(accessDeniedHandler)
+                        .authenticationEntryPoint(authenticationEntryPoint)
+            );
+            
+        return http.build();
+    }
+
+}
