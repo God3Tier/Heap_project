@@ -1,7 +1,5 @@
 package heap.application.service;
 
-import java.util.UUID;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +12,7 @@ import heap.application.security.service.JwtService;
 import heap.application.security.user.AuthUser;
 
 @Service("AuthService")
-public class AuthServiceImpl {
+public class AuthServiceImpl implements AuthService{
 
     private final UserReviewService userReviewService;
     private final PasswordEncoder passwordEncoder;

@@ -22,6 +22,7 @@ import heap.application.user.UserRepo;
 */
 @Service("UserReviewService")
 public class UserReviewServiceImpl implements UserReviewService {
+    
     private final UserRepo userRepo;
     private final StallRepo stallRepo;
     private final ReviewRepo reviewRepo;

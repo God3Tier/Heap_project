@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotNull;
 
 @RestController
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = {"heap.application.stalls", "heap.application.meal", "heap.application.user", "heap.application.review"})
+@EnableJpaRepositories(basePackages = {"heap.application.stalls", "heap.application.meal", "heap.application.user", "heap.application.review", "heap.application.mapper"})
 public class MyApplication {
     
     private static final Logger log = LoggerFactory.getLogger(MyApplication.class);

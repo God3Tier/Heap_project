@@ -75,6 +75,8 @@ public class Stall implements Comparable<Stall> {
 
     private String address;
     
+    public Stall(){}
+
 	@Override
 	public boolean equals(final Object o) {
 	    if (o instanceof final Stall s2) {

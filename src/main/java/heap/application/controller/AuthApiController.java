@@ -39,6 +39,6 @@ public class AuthApiController {
         String token = Optional.ofNullable(httpServletRequest.getHeader("Authorization"))
                 .orElseThrow();
 
-        authService.logout(token);
+        // authService.logout(token);
     }
 }

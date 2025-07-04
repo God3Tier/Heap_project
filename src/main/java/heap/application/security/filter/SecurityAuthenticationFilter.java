@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import heap.application.security.authentication.UserAuthentication;
@@ -15,6 +16,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class SecurityAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
@@ -48,7 +50,7 @@ public class SecurityAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.setContext(securityContext);
 
             filterChain.doFilter(request, response);
-            
+
         } catch(TokenAuthenticationException e) {
             throw new ServletException("Unable to get proper token", e);
         }

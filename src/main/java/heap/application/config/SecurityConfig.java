@@ -38,33 +38,26 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.addFilterBefore(securityAuthenticationFilter, AuthorizationFilter.class)
-            .authorizeHttpRequests(
-                matcher -> 
-                    matcher.requestMatchers(
-                        "/filter",
-                        "/stalls",
-                        "/api/auth/login"
-                    ).permitAll()
-            ).authorizeHttpRequests(
-                matcher -> 
-                    matcher.requestMatchers(
-                        "/logout",
-                        "/delete/**"
-                    ).authenticated()
-            ).authorizeHttpRequests(
-                matcher -> 
-                matcher.anyRequest().hasRole("ADMIN")
-            ).sessionManagement(
-                 configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            ).exceptionHandling(
-                customizer -> 
-                    customizer
-                        .accessDeniedHandler(accessDeniedHandler)
-                        .authenticationEntryPoint(authenticationEntryPoint)
-            );
-            
+                .authorizeHttpRequests(
+                        matcher -> matcher.requestMatchers(
+                                "/filter",
+                                "/stalls",
+                                "/api/auth/login").permitAll())
+                .authorizeHttpRequests(
+                        matcher -> matcher.requestMatchers(
+                                "/logout",
+                                "/delete/**").authenticated())
+                .authorizeHttpRequests(
+                        matcher -> matcher.anyRequest().hasRole("ADMIN"))
+                .sessionManagement(
+                        configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(
+                        customizer -> customizer
+                                .accessDeniedHandler(accessDeniedHandler)
+                                .authenticationEntryPoint(authenticationEntryPoint));
+
         return http.build();
     }
 
