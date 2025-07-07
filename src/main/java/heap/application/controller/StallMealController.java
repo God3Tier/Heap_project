@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,29 +36,29 @@ public class StallMealController {
         return stallService.getAllStalls();
     }
     
-    @GetMapping("/filter")
-    public List<Stall> getValidRestaurants(FilterDTO filterDTO) {
-        return stallService.getFilteredResult(filterDTO);
-    }
-
+    
     /*
-     * Post
-     */
+    * Post
+    */
     @PostMapping("/update_stall")
-    public void updateStallRating(Integer stallId) {
+    public void updateStallRating(@RequestBody Integer stallId) {
         stallService.updateNewReview(stallId);
     }
-
+    
+    @PostMapping ("/filter")
+    public List<Stall> getValidRestaurants(@RequestBody FilterDTO filterDTO) {
+        return stallService.getFilteredResult(filterDTO);
+    }
     /*
      * Deleters
      */
-    @DeleteMapping("delete/meal") 
+    @DeleteMapping("delete/meal/{id}") 
     public ResponseEntity<?> deleteStall(@RequestParam Integer id) {
         stallService.deleteStall(id);
         return new ResponseEntity<>("Successfuly deleted stall", HttpStatus.OK);
     } 
 
-    @DeleteMapping("delete/stall")
+    @DeleteMapping("delete/stall/{id}")
     public ResponseEntity<?> deleteMeal(@RequestParam Integer id) {
         stallService.deleteMeal(id);
         return new ResponseEntity<>("Successfuly deleted stall", HttpStatus.OK);
