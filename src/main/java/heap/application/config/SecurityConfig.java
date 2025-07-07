@@ -45,6 +45,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.addFilterBefore(securityAuthenticationFilter, AuthorizationFilter.class)
+                .formLogin(f -> f.disable())
                 .authorizeHttpRequests(
                         matcher -> matcher.requestMatchers(
                                 "/filter",
@@ -61,10 +62,11 @@ public class SecurityConfig {
                 .exceptionHandling(
                         customizer -> customizer
                                 .accessDeniedHandler(accessDeniedHandler)
-                                .authenticationEntryPoint(authenticationEntryPoint));
-
+                                .authenticationEntryPoint(authenticationEntryPoint))
+                .csrf(csrf -> csrf.disable());
         return http.build();
     }
+    
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
