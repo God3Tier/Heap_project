@@ -43,7 +43,7 @@ export function Layout(){
                             <li><a href="/careers.html">Careers</a></li>
                         </ul>
                     </div>
-                    <div class="social-media">
+                    <div className="social-media">
                         <ul>
                             <label>Social Media</label>
                             <li><a href="./about-us.html">Facebook Page</a></li>
@@ -53,7 +53,7 @@ export function Layout(){
                             <li><a href="./careers.html">YouTube Channel</a></li>
                         </ul>
                     </div>
-                    <div class="resources">
+                    <div className="resources">
                         <ul>
                             <label>Resources</label>
                             <li><a href="./about-us.html">User Guide</a></li>
@@ -63,7 +63,7 @@ export function Layout(){
                             <li><a href="./careers.html">Support Center</a></li>
                         </ul>
                     </div>
-                    <div class="legal">
+                    <div className="legal">
                         <ul>
                             <label>Legal</label>
                             <li><a href="./about-us.html">Privacy Policy</a></li>
@@ -73,7 +73,7 @@ export function Layout(){
                             <li><a href="./careers.html">Our Story</a></li>
                         </ul>
                     </div>
-                    <div class="contact-us">
+                    <div className="contact-us">
                         <ul>
                             <label>Contact Us</label>
                             <li><a href="./about-us.html">Get in Touch</a></li>
