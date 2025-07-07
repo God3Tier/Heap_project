@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import heap.application.dto.CreateUserDTO;
 import heap.application.dto.ReviewDTO;
 import heap.application.dto.UserResponseWithCredentials;
 import heap.application.mapper.MapperModel;
@@ -22,7 +23,7 @@ import heap.application.user.UserRepo;
 */
 @Service("UserReviewService")
 public class UserReviewServiceImpl implements UserReviewService {
-    
+
     private final UserRepo userRepo;
     private final StallRepo stallRepo;
     private final ReviewRepo reviewRepo;
@@ -79,11 +80,19 @@ public class UserReviewServiceImpl implements UserReviewService {
         reviewRepo.save(review);
     }
 
+    @Transactional
+    public void createUser(CreateUserDTO createUserDTO) {
+        User user = mapperModel.createUser(createUserDTO);
+        userRepo.save(user);
+    }
+
     /*
      * deleters
      */
+    @Transactional
     public void deleteUser(Integer id) {
-
+        User user = userRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("No user found"));
+        userRepo.delete(user);
     }
 
 }

@@ -2,6 +2,7 @@ package heap.application.service;
 
 import java.util.List;
 
+import heap.application.dto.CreateUserDTO;
 import heap.application.dto.ReviewDTO;
 import heap.application.dto.UserResponseWithCredentials;
 import heap.application.review.Review;
@@ -17,6 +18,7 @@ public interface UserReviewService {
 
     // Updater 
     public void addReview(ReviewDTO reviewDTO);
+    public void createUser(CreateUserDTO createUserDTO);
 
     // Deleter
     public void deleteUser(Integer id);

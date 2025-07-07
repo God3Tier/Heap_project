@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import heap.application.dto.FilterDTO;
+import heap.application.mapper.MapperModel;
 import heap.application.service.StallService;
 import heap.application.stalls.Stall;
 
 @RestController
 @RequestMapping("/")
 public class StallMealController {
+
     private final StallService stallService;
+
     private final Logger log = LoggerFactory.getLogger(StallMealController.class);
     
     public StallMealController(StallService stallService) {
