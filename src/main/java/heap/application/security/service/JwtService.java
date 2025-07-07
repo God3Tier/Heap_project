@@ -3,7 +3,6 @@ package heap.application.security.service;
 import java.sql.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;

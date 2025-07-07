@@ -2,6 +2,7 @@ package heap.application.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -27,13 +28,16 @@ public class UserReviewServiceImpl implements UserReviewService {
     private final UserRepo userRepo;
     private final StallRepo stallRepo;
     private final ReviewRepo reviewRepo;
+
     private final MapperModel mapperModel;
+    private final PasswordEncoder passwordEncoder;
     
-    public UserReviewServiceImpl(UserRepo userRepo, StallRepo stallRepo, ReviewRepo reviewRepo, MapperModel mapperModel) {
+    public UserReviewServiceImpl(UserRepo userRepo, StallRepo stallRepo, ReviewRepo reviewRepo, MapperModel mapperModel, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.stallRepo = stallRepo;
         this.reviewRepo = reviewRepo;
         this.mapperModel = mapperModel;
+        this.passwordEncoder = passwordEncoder;
     }
     /*
      * Getters
@@ -83,6 +87,13 @@ public class UserReviewServiceImpl implements UserReviewService {
     @Transactional
     public void createUser(CreateUserDTO createUserDTO) {
         User user = mapperModel.createUser(createUserDTO);
+        if (userRepo.findByUsername(createUserDTO.username()).isPresent()){
+            throw new IllegalArgumentException("Username has already been taken");
+        }
+
+        String hashPass = passwordEncoder.encode(createUserDTO.password());
+        user.setPassHash(hashPass);
+
         userRepo.save(user);
     }
 
