@@ -1,8 +1,10 @@
 package heap.application.dto;
 
+import java.util.List;
+
 public record CreateUserDTO( 
-    Integer userId,
     String username,
-    String password
+    String password,
+    List<String> roles
 )
 {}
