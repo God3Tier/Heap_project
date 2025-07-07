@@ -19,7 +19,7 @@ import jakarta.validation.constraints.NotNull;
 
 @RestController
 @EnableJpaRepositories(basePackages = {"heap.application.stalls", "heap.application.meal", "heap.application.user", "heap.application.review"})
-@ComponentScan({"package heap.application.mapper;"})
+@ComponentScan({"package heap.application.mapper;", "package heap.application.config;", "package heap.application.security.filter;", "package heap.application.security.service;", "package heap.application.security.exception;"})
 @SpringBootApplication
 public class MyApplication {
     

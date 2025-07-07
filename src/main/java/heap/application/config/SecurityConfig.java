@@ -96,4 +96,5 @@ public class SecurityConfig {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         };
     }
+    
 }
