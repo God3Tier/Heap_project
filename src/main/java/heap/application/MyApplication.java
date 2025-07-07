@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,9 +19,9 @@ import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.validation.constraints.NotNull;
 
 @RestController
-@SpringBootApplication
 @EnableJpaRepositories(basePackages = {"heap.application.stalls", "heap.application.meal", "heap.application.user", "heap.application.review"})
 @ComponentScan({"package heap.application.mapper;"})
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class MyApplication {
     
     private static final Logger log = LoggerFactory.getLogger(MyApplication.class);
