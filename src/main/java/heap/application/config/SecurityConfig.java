@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import heap.application.security.filter.SecurityAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 
 @EnableMethodSecurity
 @Configuration
@@ -47,23 +47,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http    
-                .httpBasic(AbstractHttpConfigurer::disable)       
-                .formLogin(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
-                .httpBasic(httpBasic -> httpBasic.disable())
+                .formLogin(form -> form.disable())
+                .httpBasic(basic -> basic.disable())
+                .logout(logout -> logout.disable())
                 .addFilterBefore(securityAuthenticationFilter, AuthorizationFilter.class)
                 .authorizeHttpRequests(
-                        matcher -> matcher.requestMatchers(
-                                "/filter",
-                                "/stalls",
-                                "/api/auth/login").permitAll())
-                .authorizeHttpRequests(
-                        matcher -> matcher.requestMatchers(
+                        matcher -> matcher
+                                .requestMatchers(
+                                "/",
+                                "/api/filter",
+                                "/api/stalls",
+                                "/api/auth/login").permitAll().
+                                requestMatchers(
                                 "/logout",
-                                "/delete/**").authenticated())
-                .authorizeHttpRequests(
-                        matcher -> matcher.anyRequest().hasRole("ADMIN"))
+                                "/delete/**").authenticated()
+                                .anyRequest().hasRole("ADMIN")
+                                )
+                .headers(header -> header.cacheControl(
+                    cache -> cache.disable()
+                ))
                 .sessionManagement(
                         configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(
@@ -84,5 +88,12 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
+    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return (request, response, authException) -> {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        };
     }
 }

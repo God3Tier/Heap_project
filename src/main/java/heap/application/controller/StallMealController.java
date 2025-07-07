@@ -20,7 +20,7 @@ import heap.application.service.StallService;
 import heap.application.stalls.Stall;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
 public class StallMealController {
 
     private final StallService stallService;

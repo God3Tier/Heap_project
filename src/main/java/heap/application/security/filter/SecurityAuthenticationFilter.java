@@ -2,8 +2,10 @@ package heap.application.security.filter;
 
 import java.io.IOException;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -20,9 +22,11 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SecurityAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
 
-    public SecurityAuthenticationFilter(JwtService jwtService) {
+    public SecurityAuthenticationFilter(JwtService jwtService, AuthenticationEntryPoint authenticationEntryPoint) {
         this.jwtService = jwtService;
+        this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
     @Override
@@ -44,7 +48,6 @@ public class SecurityAuthenticationFilter extends OncePerRequestFilter {
             AuthUser authUser = jwtService.resolveJwtToken(jwtToken);
 
             UserAuthentication authentication = new UserAuthentication(authUser);
-
             SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
             securityContext.setAuthentication(authentication);
             SecurityContextHolder.setContext(securityContext);
@@ -52,7 +55,9 @@ public class SecurityAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } catch(TokenAuthenticationException e) {
-            throw new ServletException("Unable to get proper token", e);
+            SecurityContextHolder.clearContext();
+            authenticationEntryPoint.commence(request, response, new BadCredentialsException("Invalid JWT token", e));
+            return;
         }
     }
 
