@@ -43,7 +43,7 @@ public class UserReviewController {
         return userReviewService.getFavourites(id);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public UserResponseWithCredentials getUser (String userName) {
         return userReviewService.getUserCredentialsByUsername(userName);
     }
@@ -52,7 +52,7 @@ public class UserReviewController {
      * Post
      */
 
-    @PostMapping("/update_user")
+    @PostMapping("/add_review")
     public ResponseEntity<?> addReview(@RequestBody ReviewDTO reviewDTO) {
         userReviewService.addReview(reviewDTO);
         return new ResponseEntity<>("Review has been added succesfully", HttpStatus.OK);
@@ -68,7 +68,7 @@ public class UserReviewController {
      * Delete
      * TODO: To be functional when spring security is set up
      */
-    @DeleteMapping("delete/user/{id}") 
+    @DeleteMapping("delete/{id}") 
     public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
         userReviewService.deleteUser(id);
         return new ResponseEntity<>("User has been deleted succesfully", HttpStatus.OK);

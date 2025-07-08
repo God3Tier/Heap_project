@@ -19,23 +19,19 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import heap.application.security.filter.SecurityAuthenticationFilter;
-import jakarta.servlet.http.HttpServletResponse;
 
 @EnableMethodSecurity
 @Configuration
 public class SecurityConfig {
 
     private final SecurityAuthenticationFilter securityAuthenticationFilter;
-    private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
 
     public SecurityConfig(
             SecurityAuthenticationFilter securityAuthenticationFilter,
-            AuthenticationEntryPoint authenticationEntryPoint,
             AccessDeniedHandler accessDeniedHandler) {
 
         this.securityAuthenticationFilter = securityAuthenticationFilter;
-        this.authenticationEntryPoint = authenticationEntryPoint;
         this.accessDeniedHandler = accessDeniedHandler;
     }
 
@@ -45,7 +41,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationEntryPoint authenticationEntryPoint) throws Exception {
         http    
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
@@ -55,15 +51,27 @@ public class SecurityConfig {
                 .addFilterBefore(securityAuthenticationFilter, AuthorizationFilter.class)
                 .authorizeHttpRequests(
                         matcher -> matcher
+                                // .requestMatchers(
+                                // "/",
+                                // "/api/filter",
+                                // "/api/stalls",
+                                // "/api/auth/login").permitAll().
+                                // requestMatchers(
+                                // "/logout",
+                                // "/delete/**").authenticated()
+                                // .anyRequest().hasRole("ADMIN")
                                 .requestMatchers(
-                                "/",
-                                "/api/filter",
-                                "/api/stalls",
-                                "/api/auth/login").permitAll().
-                                requestMatchers(
-                                "/logout",
-                                "/delete/**").authenticated()
-                                .anyRequest().hasRole("ADMIN")
+                                    "/delete/**",
+                                    "user/{id}"
+                                ).hasRole("ADMIN")
+                                .requestMatchers(
+                                    "/logout",
+                                    "user/delete/**",
+                                    "user/reviews",
+                                    "user/favourites",
+                                    "user/add_review"
+                                ).authenticated()
+                                .anyRequest().permitAll()
                                 )
                 .headers(header -> header.cacheControl(
                     cache -> cache.disable()
@@ -88,13 +96,6 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
-    }
-
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return (request, response, authException) -> {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-        };
     }
     
 }
