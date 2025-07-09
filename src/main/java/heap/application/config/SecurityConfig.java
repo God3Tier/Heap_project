@@ -51,18 +51,8 @@ public class SecurityConfig {
                 .addFilterBefore(securityAuthenticationFilter, AuthorizationFilter.class)
                 .authorizeHttpRequests(
                         matcher -> matcher
-                                // .requestMatchers(
-                                // "/",
-                                // "/api/filter",
-                                // "/api/stalls",
-                                // "/api/auth/login").permitAll().
-                                // requestMatchers(
-                                // "/logout",
-                                // "/delete/**").authenticated()
-                                // .anyRequest().hasRole("ADMIN")
                                 .requestMatchers(
-                                    "/delete/**",
-                                    "user/{id}"
+                                    "/delete/**"
                                 ).hasRole("ADMIN")
                                 .requestMatchers(
                                     "/logout",

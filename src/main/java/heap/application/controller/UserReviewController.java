@@ -2,6 +2,8 @@ package heap.application.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +27,8 @@ import heap.application.stalls.Stall;
 public class UserReviewController {
     
     private final UserReviewService userReviewService;
+
+    private final Logger log = LoggerFactory.getLogger(UserReviewController.class);
     
     public UserReviewController (UserReviewService userReviewService) {
         this.userReviewService = userReviewService;
@@ -60,6 +64,7 @@ public class UserReviewController {
 
     @PostMapping("/create_user")
     public ResponseEntity<?> createUser(@RequestBody CreateUserDTO createUserDTO){
+        log.info("Attempting to create user");
         userReviewService.createUser(createUserDTO);
         return new ResponseEntity<>("User successfully created", HttpStatus.OK);
     }
