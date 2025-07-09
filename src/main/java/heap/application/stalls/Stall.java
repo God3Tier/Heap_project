@@ -98,4 +98,9 @@ public class Stall implements Comparable<Stall> {
 		
 		return s2.rating - this.rating;
 	}
+
+
+    public Stall() {
+        //TODO Auto-generated constructor stub
+    }
 }

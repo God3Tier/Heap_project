@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,16 +25,13 @@ import heap.application.security.filter.SecurityAuthenticationFilter;
 public class SecurityConfig {
 
     private final SecurityAuthenticationFilter securityAuthenticationFilter;
-    private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
 
     public SecurityConfig(
             SecurityAuthenticationFilter securityAuthenticationFilter,
-            AuthenticationEntryPoint authenticationEntryPoint,
             AccessDeniedHandler accessDeniedHandler) {
 
         this.securityAuthenticationFilter = securityAuthenticationFilter;
-        this.authenticationEntryPoint = authenticationEntryPoint;
         this.accessDeniedHandler = accessDeniedHandler;
     }
 
@@ -45,25 +41,41 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationEntryPoint authenticationEntryPoint) throws Exception {
         http    
-                .httpBasic(AbstractHttpConfigurer::disable)       
-                .formLogin(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
-                .httpBasic(httpBasic -> httpBasic.disable())
+                .formLogin(form -> form.disable())
+                .httpBasic(basic -> basic.disable())
+                .logout(logout -> logout.disable())
                 .addFilterBefore(securityAuthenticationFilter, AuthorizationFilter.class)
                 .authorizeHttpRequests(
-                        matcher -> matcher.requestMatchers(
-                                "/filter",
-                                "/stalls",
-                                "/api/auth/login").permitAll())
-                .authorizeHttpRequests(
-                        matcher -> matcher.requestMatchers(
-                                "/logout",
-                                "/delete/**").authenticated())
-                .authorizeHttpRequests(
-                        matcher -> matcher.anyRequest().hasRole("ADMIN"))
+                        matcher -> matcher
+                                // .requestMatchers(
+                                // "/",
+                                // "/api/filter",
+                                // "/api/stalls",
+                                // "/api/auth/login").permitAll().
+                                // requestMatchers(
+                                // "/logout",
+                                // "/delete/**").authenticated()
+                                // .anyRequest().hasRole("ADMIN")
+                                .requestMatchers(
+                                    "/delete/**",
+                                    "user/{id}"
+                                ).hasRole("ADMIN")
+                                .requestMatchers(
+                                    "/logout",
+                                    "user/delete/**",
+                                    "user/reviews",
+                                    "user/favourites",
+                                    "user/add_review"
+                                ).authenticated()
+                                .anyRequest().permitAll()
+                                )
+                .headers(header -> header.cacheControl(
+                    cache -> cache.disable()
+                ))
                 .sessionManagement(
                         configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(
@@ -85,4 +97,5 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return source;
     }
+    
 }

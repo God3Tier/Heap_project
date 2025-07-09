@@ -25,7 +25,6 @@ public class AuthApiController {
     @PreAuthorize("isAnonymous()")
     @PostMapping("/login")
     public TokenDTO login(@RequestBody LoginDTO loginDto) {
-
         return authService.login(loginDto);
     }
 

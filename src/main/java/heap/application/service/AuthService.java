@@ -5,5 +5,4 @@ import heap.application.security.dto.TokenDTO;
 
 public interface AuthService {
     public TokenDTO login(LoginDTO LoginDTO);
-    // public void logout(String token);
 }

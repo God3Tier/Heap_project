@@ -6,18 +6,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.record.RecordModule;
+
 import heap.application.dto.CreateUserDTO;
 import heap.application.dto.ReviewDTO;
+import heap.application.dto.UserResponse;
 import heap.application.dto.UserResponseWithCredentials;
-import heap.application.mapper.MapperModel;
 import heap.application.review.Review;
 import heap.application.review.ReviewRepo;
 import heap.application.stalls.Stall;
 import heap.application.stalls.StallRepo;
 import heap.application.user.User;
 import heap.application.user.UserRepo;
-
-
 
 /*
     
@@ -29,14 +30,13 @@ public class UserReviewServiceImpl implements UserReviewService {
     private final StallRepo stallRepo;
     private final ReviewRepo reviewRepo;
 
-    private final MapperModel mapperModel;
+    private ModelMapper modelMapper = new ModelMapper().registerModule(new RecordModule());
     private final PasswordEncoder passwordEncoder;
     
-    public UserReviewServiceImpl(UserRepo userRepo, StallRepo stallRepo, ReviewRepo reviewRepo, MapperModel mapperModel, PasswordEncoder passwordEncoder) {
+    public UserReviewServiceImpl(UserRepo userRepo, StallRepo stallRepo, ReviewRepo reviewRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.stallRepo = stallRepo;
         this.reviewRepo = reviewRepo;
-        this.mapperModel = mapperModel;
         this.passwordEncoder = passwordEncoder;
     }
     /*
@@ -61,7 +61,7 @@ public class UserReviewServiceImpl implements UserReviewService {
         User user = userRepo.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("No user found"));
 
         return new UserResponseWithCredentials(
-            mapperModel.userResponse(user), user.getPassHash()
+            modelMapper.map(user, UserResponse.class), user.getPassHash()
         );
     }
 
@@ -71,13 +71,13 @@ public class UserReviewServiceImpl implements UserReviewService {
 
     @Transactional
     public void addReview(ReviewDTO reviewDTO) {
-        Review review = mapperModel.toReview(reviewDTO);
+        Review review = modelMapper.map(reviewDTO, Review.class);
         
-        Stall stall = stallRepo.findById(reviewDTO.stallId())
+        Stall stall = stallRepo.findById(reviewDTO.getStallId())
         .orElseThrow(() -> new IllegalArgumentException("Stall not found"));
         review.setStall(stall);
         
-        User user = userRepo.findByUserId(reviewDTO.userId())
+        User user = userRepo.findByUserId(reviewDTO.getUserId())
                             .orElseThrow(() -> new IllegalArgumentException("user not found"));
         review.setUser(user);
 
@@ -86,12 +86,12 @@ public class UserReviewServiceImpl implements UserReviewService {
 
     @Transactional
     public void createUser(CreateUserDTO createUserDTO) {
-        User user = mapperModel.createUser(createUserDTO);
+        User user = modelMapper.map(createUserDTO, User.class);
         if (userRepo.findByUsername(createUserDTO.username()).isPresent()){
             throw new IllegalArgumentException("Username has already been taken");
         }
 
-        String hashPass = passwordEncoder.encode(createUserDTO.password());
+        String hashPass = passwordEncoder.encode(createUserDTO.passHash());
         user.setPassHash(hashPass);
 
         userRepo.save(user);

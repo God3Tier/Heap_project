@@ -25,7 +25,11 @@ public class JwtService {
 
     public JwtService() {
         Dotenv env = Dotenv.load();
-        this.signingAlgorithm = Algorithm.HMAC256(env.get("SECRET_PASSCODE"));
+        String secretCode = env.get("SECRET_PASSCODE");
+        if (secretCode == null) {
+            throw new IllegalArgumentException("Code not found");
+        }
+        this.signingAlgorithm = Algorithm.HMAC256(secretCode);
     }
     
     /*
