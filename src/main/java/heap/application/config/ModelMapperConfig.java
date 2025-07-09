@@ -1,6 +1,7 @@
 package heap.application.config;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration;
 import org.modelmapper.record.RecordModule;
 import org.modelmapper.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,9 @@ public class ModelMapperConfig {
         };
 
         // Converter<Integer, 
-        
+        modelMapper.getConfiguration()
+                   .setFieldMatchingEnabled(true)
+                   .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
         modelMapper.typeMap(ReviewDTO.class, Review.class)
             .addMappings(mapper -> {
                 mapper.using(stallIdconverter)

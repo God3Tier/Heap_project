@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.record.RecordModule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import heap.application.dto.CreateUserDTO;
 import heap.application.dto.ReviewDTO;
@@ -29,6 +31,7 @@ public class UserReviewServiceImpl implements UserReviewService {
     private final UserRepo userRepo;
     private final StallRepo stallRepo;
     private final ReviewRepo reviewRepo;
+    private final Logger log = LoggerFactory.getLogger(UserReviewServiceImpl.class);
 
     private ModelMapper modelMapper = new ModelMapper().registerModule(new RecordModule());
     private final PasswordEncoder passwordEncoder;
@@ -59,7 +62,7 @@ public class UserReviewServiceImpl implements UserReviewService {
 
     public UserResponseWithCredentials getUserCredentialsByUsername(String username) {
         User user = userRepo.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("No user found"));
-
+        log.info(user.toString());
         return new UserResponseWithCredentials(
             modelMapper.map(user, UserResponse.class), user.getPassHash()
         );

@@ -59,7 +59,7 @@ public class User implements Comparable<User> {
     
     @Override
     public String toString() {
-        return "User [userId=" + userId + ", username=" + username + ", reviews=" + reviews + ", favourites=" + favourites
+        return "User [userId=" + userId + ", username=" + username + ", reviews=" + reviews + ", favourites=" + favourites +"roles= " + role
                 + "]";
     }
 
