@@ -1,9 +1,10 @@
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import '../style/Search.css'
 
 function FetchStuff(){
-    axios.get('http://localhost:8080/meals').then(response => {
+    axios.get('http://localhost:8080/api/stalls').then(response => {
         console.log('works');
     })
 }
@@ -18,19 +19,21 @@ export function Search(){
         budget,
         rating
     };
+    const [toPrint, setToPrint] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 // First, POST to /filter
                 console.log(filterDTO);
-                const postResponse = await axios.post('http://localhost:8080/filter', filterDTO);
+                const postResponse = await axios.post('http://localhost:8080/api/filter', filterDTO);
                 console.log('POST success:', postResponse.data);
+                setToPrint(postResponse.data);
 
                 // Then, GET from /filter
-                const getResponse = await axios.get('http://localhost:8080/filter');
-                setStalls(getResponse.data);
-                console.log('GET success:', getResponse.data);
+                // const getResponse = await axios.get('http://localhost:8080/api/filter');
+                // setStalls(getResponse.data);
+                // console.log('GET success:', getResponse.data);
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -48,11 +51,29 @@ export function Search(){
         <div>min rating: {rating}</div>
         <button onClick={FetchStuff}>Stuff</button>
 
-        <div>
-            <h2>Stalls:</h2>
+        <div className="stalls-table">
             <ul>
-                {stalls.map((stall, idx) => (
-                <li key={idx}>{stall.name}</li>
+                <h2>Stalls:</h2>
+                {toPrint.map((item, idx) => (
+                <li key={idx}>{item.name}</li>
+                ))}
+            </ul>
+            <ul>
+                <h2>Address:</h2>
+                {toPrint.map((item, idx) => (
+                <li key={idx}>{item.address}</li>
+                ))}
+            </ul>
+            <ul>
+                <h2>Average Price:</h2>
+                {toPrint.map((item, idx) => (
+                <li key={idx}>{item.price}</li>
+                ))}
+            </ul>
+            <ul>
+                <h2>Rating:</h2>
+                {toPrint.map((item, idx) => (
+                <li key={idx}>{item.rating}</li>
                 ))}
             </ul>
         </div>
