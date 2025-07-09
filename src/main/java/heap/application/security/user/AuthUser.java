@@ -6,6 +6,6 @@ import heap.application.user.Roles;
 
 public record AuthUser (
     String userId,
-    List<Roles> roles
+    List<Roles> role
 )
 {}

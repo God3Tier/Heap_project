@@ -28,7 +28,7 @@ public class AuthServiceImpl implements AuthService{
 
     public TokenDTO login(LoginDTO loginDto) {
 
-        UserResponseWithCredentials userCredentials = userReviewService.getUserCredentialsByUsername(loginDto.username());
+        UserResponseWithCredentials userCredentials = userReviewService.getUserCredentialsByUsername(loginDto.username().trim());
 
         if (!passwordEncoder.matches(loginDto.password(), userCredentials.passwordHash())) {
             throw new ApplicationAuthenticationException("Password is incorrect");
@@ -36,7 +36,7 @@ public class AuthServiceImpl implements AuthService{
 
         // String token = UUID.randomUUID().toString();
         UserResponse userResponse = userCredentials.userResponse();
-        AuthUser authUser = new AuthUser(userResponse.getId(), userResponse.getRoles());
+        AuthUser authUser = new AuthUser(userResponse.getId(), userResponse.getRole());
 
         String jwtToken = jwtService.createJwtToken(authUser);
 

@@ -61,7 +61,7 @@ public class JwtService {
         long expMilles = System.currentTimeMillis() + 360000;
         Date exp = new Date(expMilles);
 
-        List<String> roles = authUser.roles().stream()
+        List<String> roles = authUser.role().stream()
                                             .map(Roles::name)
                                             .toList();
 

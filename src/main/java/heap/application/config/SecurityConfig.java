@@ -48,6 +48,9 @@ public class SecurityConfig {
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
                 .logout(logout -> logout.disable())
+                .headers(headers -> headers
+        .           httpStrictTransportSecurity(hsts -> hsts.disable())
+                )
                 .addFilterBefore(securityAuthenticationFilter, AuthorizationFilter.class)
                 .authorizeHttpRequests(
                         matcher -> matcher

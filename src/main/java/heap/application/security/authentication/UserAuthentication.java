@@ -13,7 +13,7 @@ public record UserAuthentication(
         AuthUser authUser) implements Authentication {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authUser.roles().stream()
+        return authUser.role().stream()
                 .map(Enum::name)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
