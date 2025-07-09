@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService{
 
         String jwtToken = jwtService.createJwtToken(authUser);
 
-        return new TokenDTO(jwtToken);
+        return new TokenDTO(jwtToken, loginDto.username().trim());
     }
 
     // logout not necessary as it will just forget it 
