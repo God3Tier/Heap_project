@@ -7,6 +7,7 @@ export function Home(){
     const [budget, setBudget] = useState("all");
     const [mealType, setMeal] = useState("all");
     const [rating, setRating] = useState("all");
+    const [user, setUser] = useState("");
 
     const dataToPass = {
         location, budget, mealType, rating
@@ -15,6 +16,7 @@ export function Home(){
     return(
         <div className="home-body">
             <h1>Home page</h1>
+            <p>Hello{user}!</p>
             
             <div className="topBody">
                 <label>Background img here</label>
