@@ -1,0 +1,32 @@
+.home-body{
+  height: 1500px;
+  width: 100%;
+  .topBody{
+    /* background-image: url("../assets/background.png"); */
+    background-size: 500px;
+  }
+  .searchBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #804545;
+    margin: 0px 400px 0px 400px;
+    border-radius: 100px ;
+  }
+  .mapBody{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    .map{
+      background-color: aqua;
+      width: 100px;
+      height: 100px;
+    }
+    .map2{
+      background-color: #804545;
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
