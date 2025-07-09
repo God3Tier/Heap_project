@@ -42,7 +42,7 @@ public class JwtService {
             DecodedJWT decodedJWT = verifier.verify(token);
 
             String userId = decodedJWT.getSubject();
-            Roles roles = decodedJWT.getClaim(ROLES_CLAIM).asList(Roles.class).get(0);
+            List<Roles> roles = decodedJWT.getClaim(ROLES_CLAIM).asList(Roles.class);
 
             return new AuthUser(userId, roles);
 
@@ -61,8 +61,10 @@ public class JwtService {
         long expMilles = System.currentTimeMillis() + 360000;
         Date exp = new Date(expMilles);
 
-        String roles = authUser.roles().name();
-        
+        List<String> roles = authUser.roles().stream()
+                                            .map(Roles::name)
+                                            .toList();
+
         return JWT.create()
                   .withSubject(authUser.userId())
                   .withClaim(ROLES_CLAIM, roles)

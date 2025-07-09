@@ -47,8 +47,9 @@ public class User implements Comparable<User> {
     private List<Stall> favourites;
     
     @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
     @Column(name = "role")
-    private Roles role;
+    private List<Roles> role;
 
     
     @Override
