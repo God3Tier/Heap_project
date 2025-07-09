@@ -3,12 +3,16 @@ package heap.application.dto;
 import java.util.List;
 
 import heap.application.user.Roles;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record UserResponse 
-(
-    String id,
-    String username,
-    List<Roles> roles,
-    Boolean active
-)
-{}
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserResponse {
+    private String id;
+    private String username;
+    private List<Roles> roles;
+    private Boolean active;
+}
