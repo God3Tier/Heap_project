@@ -3,6 +3,7 @@ package heap.application.security.authentication;
 import heap.application.security.user.AuthUser;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.Authentication;
@@ -13,7 +14,7 @@ public record UserAuthentication(
         AuthUser authUser) implements Authentication {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authUser.roles().stream()
+        return List.of(authUser.roles()).stream()
                 .map(Enum::name)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
