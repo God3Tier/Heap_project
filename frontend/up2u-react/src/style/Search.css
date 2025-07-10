@@ -1,0 +1,4 @@
+.stalls-table{
+    display: flex;
+    flex-direction: row;
+}

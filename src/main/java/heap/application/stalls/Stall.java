@@ -40,7 +40,7 @@ public class Stall implements Comparable<Stall> {
 
     @Positive
     @Column(name = "rating")
-    private Integer rating;
+    private Double rating;
 
     @Positive
     @Column(name = "price")
@@ -72,21 +72,9 @@ public class Stall implements Comparable<Stall> {
         inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<User> likes;
-    
-	@Override
-	public String toString() {
-        return "Stall [" +
-                "stallId=" + stallId +
-                ", location='" + location + '\'' +
-                ", rating=" + rating +
-                ", price=" + price +
-                ", name='" + name + '\'' +
-                ", mealIds=" + mealIds +
-                ", mealsCount=" + (meals != null ? meals.size() : 0) +
-                ", reviews" + reviews +
-                ",reviewCount " + (reviews != null ? reviews.size() : 0) + 
-                ']';
-    }
+
+    private String address;
+
 	@Override
 	public boolean equals(final Object o) {
 	    if (o instanceof final Stall s2) {
@@ -108,6 +96,11 @@ public class Stall implements Comparable<Stall> {
 			return (int)Math.round(this.price - s2.price);
 		}
 		
-		return s2.rating - this.rating;
+		return (int)Math.round(s2.rating - this.rating);
 	}
+
+
+    public Stall() {
+        //TODO Auto-generated constructor stub
+    }
 }
