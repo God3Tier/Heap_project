@@ -37,13 +37,13 @@ public class UserReviewController {
     /*
      * Get
      */
-    @GetMapping("/reviews")
-    public List<Review> getReviews(Integer id) {
+    @GetMapping("/reviews{id}")
+    public List<Review> getReviews(@PathVariable("id") Integer id) {
         return userReviewService.getAllReviews(id);
     }
 
-    @GetMapping("/favourites")
-    public List<Stall> getFavouristes(Integer id) {
+    @GetMapping("/favourites{id}")
+    public List<Stall> getFavouristes(@PathVariable("id") Integer id) {
         return userReviewService.getFavourites(id);
     }
 
