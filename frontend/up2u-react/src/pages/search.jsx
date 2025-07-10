@@ -49,30 +49,26 @@ export function Search(){
         <button onClick={FetchStuff}>Stuff</button>
 
         <div className="stalls-table">
-            <ul>
-                <h2>Stalls:</h2>
-                {toPrint.map((item, idx) => (
-                <li key={idx}>{item.name}</li>
-                ))}
-            </ul>
-            <ul>
-                <h2>Address:</h2>
-                {toPrint.map((item, idx) => (
-                <li key={idx}>{item.address}</li>
-                ))}
-            </ul>
-            <ul>
-                <h2>Average Price:</h2>
-                {toPrint.map((item, idx) => (
-                <li key={idx}>{item.price}</li>
-                ))}
-            </ul>
-            <ul>
-                <h2>Rating:</h2>
-                {toPrint.map((item, idx) => (
-                <li key={idx}>{item.rating}</li>
-                ))}
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Stalls:</th>
+                        <th>Address:</th>
+                        <th>Average Price:</th>
+                        <th>Rating:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {toPrint.map((item, idx) => (
+                        <tr key={idx}>
+                            <td>{item.name}</td>
+                            <td>{item.address}</td>
+                            <td>{item.price}</td>
+                            <td>{item.rating}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
         </>
     )

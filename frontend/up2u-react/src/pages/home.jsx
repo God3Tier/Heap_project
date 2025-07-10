@@ -30,18 +30,18 @@ export function Home(){
                 <label>Background img here</label>
                 <nav className="searchBar">
                     <label>Location:</label>
-                    <select value={location}
+                    <select defaultValue="all"
                             onChange={e => setLocation(e.target.value)}>
-                        <option selected value="all">All</option>
+                        <option value="all">All</option>
                         <option value="Bencoolen MRT">Bencoolen MRT</option>
                         <option value="Bras Basah MRT">Bras Basah MRT</option>
                         <option value="City Hall MRT">City Hall MRT</option>
                         <option value="Bugis MRT">Bugis MRT</option>
                     </select>
                     <label>Budget:</label>
-                    <select value={budget}
+                    <select defaultValue="all"
                             onChange={e => setBudget(e.target.value)}>
-                        <option selected value="all">All</option>
+                        <option value="all">All</option>
                         <option value="1">Less than 1</option>
                         <option value="2">Less than 20</option>
                         <option value="3">$$$</option>
@@ -49,18 +49,18 @@ export function Home(){
                         <option value="5">$$$$$</option>
                     </select>
                     <label>Meal Type:</label>
-                    <select value={mealType}
+                    <select defaultValue="all"
                             onChange={e => setMeal(e.target.value)}>
-                        <option selected value="all">All</option>
+                        <option value="all">All</option>
                         <option value="korean">Korean</option>
                         <option value="japanese">Japanese</option>
                         <option value="chinese">Chinese</option>
                         <option value="indian">Indian</option>
                     </select>
                     <label>Min. Rating:</label>
-                    <select value={rating}
+                    <select defaultValue="all"
                             onChange={e => setRating(e.target.value)}>
-                        <option selected value="all">All</option>
+                        <option value="all">All</option>
                         <option value="1">1 Star</option>
                         <option value="2">2 Star</option>
                         <option value="3">3 Star</option>

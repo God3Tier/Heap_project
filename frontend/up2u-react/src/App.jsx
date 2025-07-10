@@ -8,6 +8,7 @@ import { Login } from './pages/login'
 import { SignUp } from './pages/signup'
 import { Search } from './pages/search'
 import { Reviews } from './pages/reviews'
+import { ListReviews } from './pages/list-reviews'
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/search" element={<Search/>}/>
           <Route path="/reviews" element={<Reviews/>}/>
+          <Route path="/list-reviews" element={<ListReviews/>}/>
           <Route path="/test" element={<Test/>}/>
           </Route>
         </Routes>

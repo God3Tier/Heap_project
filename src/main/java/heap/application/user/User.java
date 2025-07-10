@@ -3,6 +3,8 @@ package heap.application.user;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import heap.application.review.Review;
 import heap.application.stalls.Stall;
 import jakarta.persistence.Column;
@@ -32,6 +34,7 @@ public class User implements Comparable<User> {
     @Column(unique = true)
     private String username;
 
+    @JsonIgnore
     private String passHash;
 
     @OneToMany

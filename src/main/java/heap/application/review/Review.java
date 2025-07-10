@@ -31,7 +31,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "app_user")
-    @JsonIgnore
+    // @JsonIgnore
     private User user;
 
     private String reviewDescription;
