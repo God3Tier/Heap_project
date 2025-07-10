@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { data, Link } from "react-router-dom";
 import '../style/Home.css'
 
@@ -12,6 +12,14 @@ export function Home(){
     const dataToPass = {
         location, budget, mealType, rating
     };
+
+    // setting user to show on frontend
+    useEffect(() => {
+        if(localStorage.getItem('username') != null){
+            setUser(" " + localStorage.getItem('username'));
+        }
+    }, []);
+
 
     return(
         <div className="home-body">

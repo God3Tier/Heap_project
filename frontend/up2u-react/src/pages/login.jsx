@@ -9,16 +9,35 @@ export function Login(){
         username,
         password
     };
+    const [allow, setAllow] = useState("");
 
     const loginRequest = async() => {
         try {
             const postResponse = await axios.post('http://localhost:8080/api/auth/login', userDTO);
-                console.log('POST success:', postResponse.data);
+            console.log('POST success:', postResponse.data);
+
+            // save token/username/userid to local storage
+            localStorage.setItem('token', postResponse.data.token);
+            localStorage.setItem('username', postResponse.data.username);
+            localStorage.setItem('userId', postResponse.data.userId);
+            console.log('Token Saved', postResponse.data.token);
+            console.log('Username Saved', postResponse.data.username);
+            console.log('UserID Saved', postResponse.data.userId);
+            setAllow("Logged in");
 
         } catch (error) {
             console.error('Error:', error);
+            if(error.status == '401'){
+                console.log("Wrong password");
+                setAllow("Wrong password");
+            }
         }
 
+    };
+
+    const logout = async() => {
+        localStorage.clear();
+        console.log("Cleared local storage");
     };
 
     return(
@@ -30,8 +49,10 @@ export function Login(){
                 {/* <button onClick={loginRequest}>Sign Up</button> */}
                 {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
             </form>
+            <p>{allow}</p>
             <button onClick={loginRequest}>Login</button>
             {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
+            <button onClick={logout}>Logout</button>
         </div>
     )
 }
