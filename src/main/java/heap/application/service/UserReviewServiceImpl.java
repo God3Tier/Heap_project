@@ -12,7 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import heap.application.dto.CreateUserDTO;
+import heap.application.dto.DeleteReviewDTO;
 import heap.application.dto.ReviewDTO;
+import heap.application.dto.UpdateReviewDTO;
 import heap.application.dto.UserResponse;
 import heap.application.dto.UserResponseWithCredentials;
 import heap.application.review.Review;
@@ -100,6 +102,19 @@ public class UserReviewServiceImpl implements UserReviewService {
         userRepo.save(user);
     }
 
+    public void updateReview(UpdateReviewDTO updateReviewDTO) {
+        Review review = reviewRepo.findById(updateReviewDTO.reviewId()).orElseThrow(() -> new IllegalArgumentException("No review found"));
+        
+        if (review.getUser().getUserId() != updateReviewDTO.userId() || !review.getUser().getUsername().equals(updateReviewDTO.username())) {
+            throw new IllegalAccessError("Not your review");
+        }
+
+        review.setReviewDescription(updateReviewDTO.reviewDescription());
+        review.setRating(updateReviewDTO.rating());
+
+        reviewRepo.save(review);
+    }
+
     /*
      * deleters
      */
@@ -107,6 +122,16 @@ public class UserReviewServiceImpl implements UserReviewService {
     public void deleteUser(Integer id) {
         User user = userRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("No user found"));
         userRepo.delete(user);
+    }
+
+    public void deleteReview(DeleteReviewDTO deleteReviewDTO) {
+        Review review = reviewRepo.findById(deleteReviewDTO.reviewId()).orElseThrow(() -> new IllegalArgumentException("No review found"));
+
+        if (review.getUser().getUserId() != deleteReviewDTO.userId() || !review.getUser().getUsername().equals(deleteReviewDTO.username())) {
+            throw new IllegalAccessError("Not your review");
+        }
+
+        reviewRepo.delete(review);
     }
 
 }

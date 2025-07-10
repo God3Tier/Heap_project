@@ -2,6 +2,7 @@ package heap.application.controller;
 
 import java.util.List;
 
+import org.hibernate.sql.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import heap.application.dto.CreateUserDTO;
+import heap.application.dto.DeleteReviewDTO;
 import heap.application.dto.ReviewDTO;
+import heap.application.dto.UpdateReviewDTO;
 import heap.application.dto.UserResponseWithCredentials;
 import heap.application.review.Review;
 import heap.application.service.UserReviewService;
@@ -59,19 +62,29 @@ public class UserReviewController {
 
     @PostMapping("/create_user")
     public ResponseEntity<?> createUser(@RequestBody CreateUserDTO createUserDTO){
-        log.info("Attempting to create user");
         userReviewService.createUser(createUserDTO);
         return new ResponseEntity<>("User successfully created", HttpStatus.OK);
     }
 
+    @PostMapping("/update_review")
+    public ResponseEntity<?> updateReview(@RequestBody UpdateReviewDTO updateReviewDTO) {
+        userReviewService.updateReview(updateReviewDTO);
+        return new ResponseEntity<>("Review updated syccessfully", HttpStatus.OK);
+    }
+
     /*
      * Delete
-     * TODO: To be functional when spring security is set up
      */
     @DeleteMapping("delete/{id}") 
-    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteUser(@PathVariable("id") Integer id) {
         userReviewService.deleteUser(id);
         return new ResponseEntity<>("User has been deleted succesfully", HttpStatus.OK);
     } 
+
+    @DeleteMapping("delete/review")
+    public ResponseEntity<?> deleteReview(@RequestBody DeleteReviewDTO deleteReviewDTO) {
+        userReviewService.deleteReview(deleteReviewDTO);
+        return new ResponseEntity<>("Review has been deleted succesfully", HttpStatus.OK);
+    }
 
 }

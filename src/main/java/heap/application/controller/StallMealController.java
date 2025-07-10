@@ -50,14 +50,16 @@ public class StallMealController {
     * Post
     */
     @PostMapping("/update_stall/{id}")
-    public void updateStallRating(@PathVariable("id") Integer stallId) {
+    public ResponseEntity<?> updateStallRating(@PathVariable("id") Integer stallId) {
         stallService.updateNewReview(stallId);
+        return new ResponseEntity<>("Stall updated successfully", HttpStatus.OK);
     }
     
     @PostMapping ("/filter")
     public List<Stall> getValidRestaurants(@RequestBody FilterDTO filterDTO) {
         return stallService.getFilteredResult(filterDTO);
     }
+
     /*
      * Deleters
      */
@@ -73,5 +75,3 @@ public class StallMealController {
         return new ResponseEntity<>("Successfuly deleted stall", HttpStatus.OK);
     }
 }
-
-
