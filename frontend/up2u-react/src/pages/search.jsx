@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import '../style/Search.css'
 
 function FetchStuff(){
@@ -38,7 +39,6 @@ export function Search(){
 
         fetchData();
     }, []);
-
     
     return (
         <>
@@ -56,6 +56,7 @@ export function Search(){
                         <th>Address:</th>
                         <th>Average Price:</th>
                         <th>Rating:</th>
+                        <th>View Review:</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,6 +66,7 @@ export function Search(){
                             <td>{item.address}</td>
                             <td>{item.price}</td>
                             <td>{item.rating}</td>
+                            <td><Link to="/list-reviews"><button/></Link></td>
                         </tr>
                     ))}
                 </tbody>
