@@ -50,7 +50,7 @@ public class StallMealController {
     * Post
     */
     @PostMapping("/update_stall")
-    public void updateStallRating(@RequestBody Integer stallId) {
+    public void updateStallRating(@PathVariable("id") Integer stallId) {
         stallService.updateNewReview(stallId);
     }
     
