@@ -96,7 +96,7 @@ public class Stall implements Comparable<Stall> {
 			return (int)Math.round(this.price - s2.price);
 		}
 		
-		return s2.rating - this.rating;
+		return (int)Math.round(s2.rating - this.rating);
 	}
 
 
