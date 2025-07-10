@@ -8,6 +8,7 @@ export function Reviews(){
     const [reviewDescription, setReviewDescription] = useState(""); 
     const [user, setUser] = useState("Unknown");
     const [userId, setUserId] = useState(0); //int
+    const [token, setToken] = useState("");
     const [toPrint, setToPrint] = useState([]);
     const filterDTO = {
         mealType: "all",
@@ -44,6 +45,7 @@ export function Reviews(){
         if(localStorage.getItem('username') != null){
             setUser(localStorage.getItem('username'));
             setUserId(localStorage.getItem('userId'));
+            setToken(localStorage.getItem('token'));
         }
     },[]);
 
@@ -51,7 +53,8 @@ export function Reviews(){
     const postReview = async() =>{
         try{
             console.log(reviewDTO);
-            const postResponse = await axios.post('http://localhost:8080/user/add_review', reviewDTO);
+            const postResponse = await axios.post('http://localhost:8080/user/add_review', reviewDTO, {
+            headers: {Authorization: `Bearer ${token}`}});
             console.log('POST success:', postResponse.data);
 
         } catch(error){
