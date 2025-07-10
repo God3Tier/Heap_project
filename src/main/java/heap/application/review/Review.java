@@ -22,7 +22,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reviewId;
 
-    private Integer rating;
+    private Double rating;
 
     @ManyToOne
     @JoinColumn(name = "stall_id")

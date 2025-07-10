@@ -40,7 +40,7 @@ public class Stall implements Comparable<Stall> {
 
     @Positive
     @Column(name = "rating")
-    private Integer rating;
+    private Double rating;
 
     @Positive
     @Column(name = "price")

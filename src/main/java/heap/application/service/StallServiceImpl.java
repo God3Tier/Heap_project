@@ -86,9 +86,9 @@ public class StallServiceImpl implements StallService {
         Stall stall = stallRepo.findByStallId(stallId)
                                .orElseThrow(() -> new IllegalArgumentException("Stall not found"));
         
-        int i = (int)Math.round(stall.getReviews().stream()
+        double i = stall.getReviews().stream()
                                   .map(a -> a.getRating())
-                                  .reduce(0, (a, b) -> a + b) / (double)stall.getReviews().size());
+                                  .reduce(0.0, (a, b) -> a + b) / (double)stall.getReviews().size();
         
         stall.setRating(i);
         stallRepo.save(stall);
