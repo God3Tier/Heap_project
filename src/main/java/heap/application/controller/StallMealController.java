@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import heap.application.dto.FilterDTO;
+import heap.application.review.Review;
 import heap.application.service.StallService;
 import heap.application.stalls.Stall;
 
@@ -37,6 +38,11 @@ public class StallMealController {
     @GetMapping("/stalls")
     public List<Stall> selectAllStalls() {
         return stallService.getAllStalls();
+    }
+
+    @GetMapping("/review/{id}")
+    public List<Review> retrieveAllReviews(@PathVariable("id") Integer stallId) {
+        return stallService.getAllReviews(stallId);
     }
     
     
