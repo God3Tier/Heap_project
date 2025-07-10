@@ -1,0 +1,16 @@
+{
+  "meals": [
+    {
+      "meal_id": 1,
+      "meal_name": "trolling"
+    },
+    {
+      "meal_id": 2,
+      "meal_name": "havingfun"
+    },
+    {
+      "meal_id": 3,
+      "meal_name": "gay"
+    }
+  ]
+}

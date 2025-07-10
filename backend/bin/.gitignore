@@ -1,0 +1,6 @@
+.env
+target
+.idea
+.project
+HELP.md
+application.properties
