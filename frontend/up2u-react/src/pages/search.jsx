@@ -24,16 +24,13 @@ export function Search(){
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // First, POST to /filter
+                // POST to /api/filter
+                // and get what is passed to us
                 console.log(filterDTO);
                 const postResponse = await axios.post('http://localhost:8080/api/filter', filterDTO);
                 console.log('POST success:', postResponse.data);
                 setToPrint(postResponse.data);
 
-                // Then, GET from /filter
-                // const getResponse = await axios.get('http://localhost:8080/api/filter');
-                // setStalls(getResponse.data);
-                // console.log('GET success:', getResponse.data);
             } catch (error) {
                 console.error('Error:', error);
             }

@@ -7,6 +7,7 @@ import { AboutUs } from './pages/about-us'
 import { Login } from './pages/login'
 import { SignUp } from './pages/signup'
 import { Search } from './pages/search'
+import { Reviews } from './pages/reviews'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/search" element={<Search/>}/>
+          <Route path="/reviews" element={<Reviews/>}/>
           <Route path="/test" element={<Test/>}/>
           </Route>
         </Routes>
