@@ -10,6 +10,7 @@ export function Reviews(){
     const [userId, setUserId] = useState(0); //int
     const [token, setToken] = useState("");
     const [toPrint, setToPrint] = useState([]);
+
     const filterDTO = {
         mealType: "all",
         location: "all",
@@ -22,7 +23,7 @@ export function Reviews(){
         stallId,
         userId,
         reviewDescription
-    }
+    };
 
     // on page load
     useEffect(() => {

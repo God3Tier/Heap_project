@@ -10,7 +10,6 @@ import { Search } from './pages/search'
 import { Reviews } from './pages/reviews'
 import { ListReviews } from './pages/list-reviews'
 
-
 function App() {
   
   return (
