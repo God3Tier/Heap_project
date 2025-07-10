@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,13 +56,13 @@ public class StallMealController {
      * Deleters
      */
     @DeleteMapping("delete/meal/{id}") 
-    public ResponseEntity<?> deleteStall(@RequestParam Integer id) {
+    public ResponseEntity<?> deleteStall(@PathVariable("id") Integer id) {
         stallService.deleteStall(id);
         return new ResponseEntity<>("Successfuly deleted stall", HttpStatus.OK);
     } 
 
     @DeleteMapping("delete/stall/{id}")
-    public ResponseEntity<?> deleteMeal(@RequestParam Integer id) {
+    public ResponseEntity<?> deleteMeal(@PathVariable("id")Integer id) {
         stallService.deleteMeal(id);
         return new ResponseEntity<>("Successfuly deleted stall", HttpStatus.OK);
     }

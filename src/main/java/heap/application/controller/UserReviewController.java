@@ -47,8 +47,8 @@ public class UserReviewController {
         return userReviewService.getFavourites(id);
     }
 
-    @GetMapping("/{id}")
-    public UserResponseWithCredentials getUser (String userName) {
+    @GetMapping("/{userName}")
+    public UserResponseWithCredentials getUser (@PathVariable("userName") String userName) {
         return userReviewService.getUserCredentialsByUsername(userName);
     }
 
