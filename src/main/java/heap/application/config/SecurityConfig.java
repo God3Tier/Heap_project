@@ -60,7 +60,6 @@ public class SecurityConfig {
                                 .requestMatchers(
                                     "/logout",
                                     "user/delete/**",
-                                    "user/reviews",
                                     "user/favourites",
                                     "user/add_review"
                                 ).authenticated()
