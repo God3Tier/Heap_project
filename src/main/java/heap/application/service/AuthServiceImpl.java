@@ -36,11 +36,11 @@ public class AuthServiceImpl implements AuthService{
 
         // String token = UUID.randomUUID().toString();
         UserResponse userResponse = userCredentials.userResponse();
-        AuthUser authUser = new AuthUser(userResponse.getId(), userResponse.getRole());
+        AuthUser authUser = new AuthUser(userResponse.getUserId(), userResponse.getRole());
 
         String jwtToken = jwtService.createJwtToken(authUser);
 
-        return new TokenDTO(jwtToken, loginDto.username().trim());
+        return new TokenDTO(jwtToken, loginDto.username().trim(), userResponse.getUserId());
     }
 
     // logout not necessary as it will just forget it 

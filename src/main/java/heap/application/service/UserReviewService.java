@@ -7,6 +7,7 @@ import heap.application.dto.ReviewDTO;
 import heap.application.dto.UserResponseWithCredentials;
 import heap.application.review.Review;
 import heap.application.stalls.Stall;
+import heap.application.user.User;
 
 public interface UserReviewService {
 
@@ -15,7 +16,6 @@ public interface UserReviewService {
     public List<Stall> getFavourites(Integer id);
     public List<Review> getReviews (Integer id);
     public UserResponseWithCredentials getUserCredentialsByUsername(String username);
-
     // Updater 
     public void addReview(ReviewDTO reviewDTO);
     public void createUser(CreateUserDTO createUserDTO);

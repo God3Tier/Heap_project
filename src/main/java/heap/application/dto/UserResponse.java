@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse {
-    private String id;
+    private String userId;
     private String username;
     private List<Roles> role;
-    private Boolean active;
 }
