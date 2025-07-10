@@ -49,7 +49,7 @@ public class StallMealController {
     /*
     * Post
     */
-    @PostMapping("/update_stall")
+    @PostMapping("/update_stall/{id}")
     public void updateStallRating(@PathVariable("id") Integer stallId) {
         stallService.updateNewReview(stallId);
     }
