@@ -1,6 +1,8 @@
 import '../style/Reviews.css'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { StallsDropdown } from '../components/StallsDropdown';
+import { RatingDropdown } from '../components/RatingDropdown';
 
 export function Reviews(){
     const [rating, setRating] = useState(0); //int
@@ -9,14 +11,7 @@ export function Reviews(){
     const [user, setUser] = useState("Unknown");
     const [userId, setUserId] = useState(0); //int
     const [token, setToken] = useState("");
-    const [toPrint, setToPrint] = useState([]);
 
-    const filterDTO = {
-        mealType: "all",
-        location: "all",
-        budget: "all",
-        rating: "all"
-    };
     const reviewDTO = {
         reviewId: null,
         rating,
@@ -27,22 +22,6 @@ export function Reviews(){
 
     // on page load
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // POST to /api/filter
-                // and get what is passed to us
-                console.log(filterDTO);
-                const postResponse = await axios.post('http://localhost:8080/api/filter', filterDTO);
-                console.log('POST success:', postResponse.data);
-                setToPrint(postResponse.data);
-
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
-
-        fetchData();
-
         if(localStorage.getItem('username') != null){
             setUser(localStorage.getItem('username'));
             setUserId(localStorage.getItem('userId'));
@@ -69,26 +48,9 @@ export function Reviews(){
         <div className="reviews-body">
             <form>
                 <label>User:</label><input value={user} disabled/><br/>
-                
-                <label>Stall:</label>
-                <select defaultValue="0"
-                        onChange={e => setStallId(e.target.value)}>
-                    <option value="0" disabled>Select Stall</option>
-                    {toPrint.map((item, idx) => (
-                    <option value={item.stallId} key={idx}>{item.name}</option>
-                    ))}
-                </select><br/>
+                <StallsDropdown onChange={e => setStallId(e.target.value)}/><br/>
 
-                <label>Rating:</label>
-                <select defaultValue="0"
-                        onChange={e => setRating(e.target.value)}>
-                    <option value="0" disabled>Select Rating</option>
-                    <option value="1">1 Star</option>
-                    <option value="2">2 Star</option>
-                    <option value="3">3 Star</option>
-                    <option value="4">4 Star</option>
-                    <option value="5">5 Star</option>
-                </select><br/>
+                <RatingDropdown onChange={e => setRating(e.target.value)}/><br/>
 
                 <label>Review:</label>
                 <textarea onChange={e => setReviewDescription(e.target.value)}></textarea><br/>

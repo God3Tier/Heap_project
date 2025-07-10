@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { StallsDropdown } from "../components/StallsDropdown";
 
 
 export function ListReviews(){
@@ -16,26 +17,10 @@ export function ListReviews(){
     const [selectedId, setSelectedId] = useState(0);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // POST to /api/filter
-                // and get what is passed to us
-                console.log(filterDTO);
-                const postResponse = await axios.post('http://localhost:8080/api/filter', filterDTO);
-                console.log('POST success:', postResponse.data);
-                setToPrint(postResponse.data);
-
-            } catch (error) {
-                console.error('Error', error);
-            }
-        };
-
-        fetchData();
-
         if(localStorage.getItem('username') != null){
-            // setUser(localStorage.getItem('username'));
-            // setUserId(localStorage.getItem('userId'));
-            // setToken(localStorage.getItem('token'));
+            setUser(localStorage.getItem('username'));
+            setUserId(localStorage.getItem('userId'));
+            setToken(localStorage.getItem('token'));
         }
     },[]);
 
@@ -45,6 +30,9 @@ export function ListReviews(){
             const getReview = await axios.get(`http://localhost:8080/api/review/${stallId}`);
             console.log('GET Success', getReview.data);
             setReviews(getReview.data);
+
+            const postResponse = await axios.post('http://localhost:8080/api/filter', filterDTO);
+            setToPrint(postResponse.data);
 
             const selectedStall = toPrint.find(item => item.stallId === selectedId);
             setStall(" " + selectedStall.name);
@@ -57,18 +45,10 @@ export function ListReviews(){
     return(
         <>
         <div className="list-reviews-body">
-            <label>Stall:</label>
-            <select defaultValue="0"
-                    onChange={e => {
+            <StallsDropdown onChange={e => {
                         setStallId(e.target.value);
                         setSelectedId(parseInt(e.target.value));
-                        
-                    }}>
-                <option value="0" disabled>Select Stall</option>
-                {toPrint.map((item, idx) => (
-                <option value={item.stallId} key={idx}>{item.name}</option>
-                ))}
-            </select>
+                    }}/>
             <button onClick={fetchReview}>Search</button><br/>
 
             <label>Reviews for{stall}:</label>
