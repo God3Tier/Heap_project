@@ -1,4 +1,4 @@
-/target/
+backend/target/
 
 .classpath
 .idea/
@@ -11,3 +11,4 @@ HELP.md
 node_modules/
 DepricatedStallRepo.txt
 .DS_Store
+.vscode/
