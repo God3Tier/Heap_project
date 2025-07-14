@@ -1,8 +1,7 @@
 .content-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 64px 20px; /* prevent horizontal overflow on small screens */
-    box-sizing: border-box;
-    width: 100%;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 20px;
+  box-sizing: border-box;
+  width: 100%;
+}

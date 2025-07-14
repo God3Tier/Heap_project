@@ -17,7 +17,7 @@
     font-size: 24px;
     font-weight: bold;
     color: white;
-  }
+  } 
   
   /* Style choice */
   /* .front button,
@@ -28,10 +28,11 @@
     font-weight: bold;
     cursor: pointer;
     font-size: 16px;
-  } */
+  }  */
   
-  /* .front button:hover,
+  .front button:hover,
   .back button:hover {
-    text-decoration: underline;
-  } */
+    /* text-decoration: underline; */
+    border-radius: 5;
+  }
   
