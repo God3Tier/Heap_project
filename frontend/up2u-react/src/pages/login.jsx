@@ -24,7 +24,8 @@ export function Login(){
             console.log('Token Saved', postResponse.data.token);
             console.log('Username Saved', postResponse.data.username);
             console.log('UserID Saved', postResponse.data.userId);
-            setAllow("Logged in");
+            window.location.href = "/";
+            
 
         } catch (error) {
             console.error('Error:', error);
@@ -34,11 +35,6 @@ export function Login(){
             }
         }
 
-    };
-
-    const logout = async() => {
-        localStorage.clear();
-        console.log("Cleared local storage");
     };
 
     return(
@@ -53,7 +49,6 @@ export function Login(){
             <p>{allow}</p>
             <button onClick={loginRequest}>Login</button>
             {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
-            <button onClick={logout}>Logout</button>
         </div>
     )
 }
