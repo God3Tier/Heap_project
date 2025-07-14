@@ -12,14 +12,20 @@ export function SignUp(){
         passHash,
         role
     };
+    const [allow, setAllow] = useState("");
 
     const signupRequest = async() => {
         try {
             const postResponse = await axios.post(`${backendUrl}/user/create_user`, userDTO);
-                console.log('POST success:', postResponse.data);
+            console.log('POST success:', postResponse.data);
+            setAllow("Account Created");
 
         } catch (error) {
             console.error('Error:', error);
+            if(error.status == '500'){
+                console.log("Username already in use");
+                setAllow("Username already in use");
+            }
         }
 
     };
@@ -33,6 +39,7 @@ export function SignUp(){
                 {/* <button onClick={signupRequest}>Sign Up</button> */}
                 {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
             </form>
+            <p>{allow}</p>
             <button onClick={signupRequest}>Sign Up</button>
             {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
         </div>

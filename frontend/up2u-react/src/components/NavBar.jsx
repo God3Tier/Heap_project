@@ -22,11 +22,15 @@ export function NavBar(){
                 {isLoggedIn ? (
                     <button onClick={handleLogout}>Logout</button>
                     ) : (
-                    <Link to="/login">
-                        <button>Login</button>
-                    </Link>
+                    <>
+                        <Link to="/login">
+                            <button>Login</button>
+                        </Link>
+                        <Link to="/signup">
+                            <button>Create Account</button>
+                        </Link>
+                    </>
                 )}
-                <Link to="/signup"><button>Create Account</button></Link>
             </div>
         </div>
     )
