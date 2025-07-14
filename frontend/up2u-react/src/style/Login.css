@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:frontend/up2u-react/src/style/Login.css
 .login-body{
     display: flex;
     flex-direction: column;
@@ -8,3 +9,18 @@
         width:fit-content;
     }
 }
+=======
+.login-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 80vh; 
+  
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 300px;
+    }
+  }
+>>>>>>> Stashed changes:src/main/up2u-react/src/style/Login.css
