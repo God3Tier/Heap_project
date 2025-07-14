@@ -43,10 +43,34 @@ export function Home(){
                     <select value={meal}
                             onChange={e => setMeal(e.target.value)}>
                         <option selected disabled>Select Meal Type</option>
-                        <option value="korean">Korean</option>
-                        <option value="japanese">Japanese</option>
+                        <optgroup label="Asian">
                         <option value="chinese">Chinese</option>
-                        <option value="indian">Indian</option>
+                        <option value="japanese">Japanese</option>
+                        <option value="korean">Korean</option>
+                        <option value="thai">Thai</option>
+                        <option value="local">Local</option>
+                        <option value="malay">Malay</option>
+                    </optgroup>
+
+                    <optgroup label="Western">
+                        <option value="italian">Italian</option>
+                        <option value="french">French</option>
+                        <option value="international">International</option>
+                        <option value="fast_food">Fast Food</option>
+                    </optgroup>
+
+                    <optgroup label="Vegetarian & Healthy">
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="light_meal">Light Meal</option>
+                        <option value="salad">Salad</option>
+                    </optgroup>
+
+                    <optgroup label="Desserts & Snacks">
+                        <option value="dessert">Dessert</option>
+                        <option value="snack">Snacks</option>
+                        <option value="beverage">Beverages</option>
+                        <option value="coffee">Coffee</option>
+                    </optgroup>
                     </select>
                     <label>Min. Rating:</label>
                     <select value={minRating}
