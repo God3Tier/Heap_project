@@ -3,6 +3,7 @@ import axios from "axios";
 
 
 export function StallsDropdown({ onChange }){
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [toPrint, setToPrint] = useState([]);
     const filterDTO = {
         mealType: "all",
@@ -16,7 +17,7 @@ export function StallsDropdown({ onChange }){
             try {
                 // POST to /api/filter
                 // and get what is passed to us
-                const postResponse = await axios.post('http://localhost:8080/api/filter', filterDTO);
+                const postResponse = await axios.post(`${backendUrl}/api/filter`, filterDTO);
                 console.log('POST success:', postResponse.data);
                 setToPrint(postResponse.data);
 

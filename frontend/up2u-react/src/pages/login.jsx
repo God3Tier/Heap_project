@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export function Login(){
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const userDTO = {
@@ -13,7 +14,7 @@ export function Login(){
 
     const loginRequest = async() => {
         try {
-            const postResponse = await axios.post('http://localhost:8080/api/auth/login', userDTO);
+            const postResponse = await axios.post(`${backendUrl}/api/auth/login`, userDTO);
             console.log('POST success:', postResponse.data);
 
             // save token/username/userid to local storage

@@ -3,7 +3,7 @@ import '../style/SignUp.css'
 import { useState } from 'react';
 
 export function SignUp(){
-
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const role = ["ROLE_REGULAR"];
     const [username, setUsername] = useState("");
     const [passHash, setPassHash] = useState("");
@@ -15,7 +15,7 @@ export function SignUp(){
 
     const signupRequest = async() => {
         try {
-            const postResponse = await axios.post('http://localhost:8080/user/create_user', userDTO);
+            const postResponse = await axios.post(`${backendUrl}/user/create_user`, userDTO);
                 console.log('POST success:', postResponse.data);
 
         } catch (error) {

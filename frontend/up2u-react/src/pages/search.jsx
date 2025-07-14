@@ -4,13 +4,8 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import '../style/Search.css'
 
-function FetchStuff(){
-    axios.get('http://localhost:8080/api/stalls').then(response => {
-        console.log('works');
-    })
-}
-
 export function Search(){
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const data = useLocation();
     const { location, budget, mealType, rating } = data.state || {};
     const [stalls, setStalls] = useState([]);
@@ -28,7 +23,7 @@ export function Search(){
                 // POST to /api/filter
                 // and get what is passed to us
                 console.log(filterDTO);
-                const postResponse = await axios.post('http://localhost:8080/api/filter', filterDTO);
+                const postResponse = await axios.post(`${backendUrl}/api/filter`, filterDTO);
                 console.log('POST success:', postResponse.data);
                 setToPrint(postResponse.data);
 
@@ -46,7 +41,6 @@ export function Search(){
         <div>budget: {budget}</div>
         <div>meal: {mealType}</div>
         <div>min rating: {rating}</div>
-        <button onClick={FetchStuff}>Stuff</button>
 
         <div className="stalls-table">
             <table>
@@ -56,7 +50,7 @@ export function Search(){
                         <th>Address:</th>
                         <th>Average Price:</th>
                         <th>Rating:</th>
-                        <th>View Review:</th>
+                        {/* <th>View Review:</th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -66,7 +60,7 @@ export function Search(){
                             <td>{item.address}</td>
                             <td>{item.price}</td>
                             <td>{item.rating}</td>
-                            <td><Link to="/list-reviews"><button/></Link></td>
+                            {/* <td><Link to="../list-reviews"><button/></Link></td> */}
                         </tr>
                     ))}
                 </tbody>

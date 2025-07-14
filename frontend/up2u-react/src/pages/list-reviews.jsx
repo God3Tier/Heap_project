@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { StallsDropdown } from "../components/StallsDropdown";
 
-
 export function ListReviews(){
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [toPrint, setToPrint] = useState([]);
     const [stallId, setStallId] = useState(0); //int
     const [stall, setStall] = useState("");
@@ -27,12 +27,13 @@ export function ListReviews(){
     // search reviews
     const fetchReview = async () =>{
         try{
-            const getReview = await axios.get(`http://localhost:8080/api/review/${stallId}`);
+            const getReview = await axios.get(`${backendUrl}/api/review/${stallId}`);
             console.log('GET Success', getReview.data);
             setReviews(getReview.data);
 
-            const postResponse = await axios.post('http://localhost:8080/api/filter', filterDTO);
+            const postResponse = await axios.post(`${backendUrl}/api/filter`, filterDTO);
             setToPrint(postResponse.data);
+            console.log(process.env.TEST);
 
             const selectedStall = toPrint.find(item => item.stallId === selectedId);
             setStall(" " + selectedStall.name);
@@ -58,7 +59,7 @@ export function ListReviews(){
                         <th>User:</th>
                         <th>Rating:</th>
                         <th>Review:</th>
-                        <th>Action:</th>
+                        {/* <th>Action:</th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -67,7 +68,7 @@ export function ListReviews(){
                             <td>{item.user.username}</td>
                             <td>{item.rating}</td>
                             <td>{item.reviewDescription}</td>
-                            <td>Dropdown</td>
+                            {/* <td>Dropdown</td> */}
                         </tr>
                     ))}
                 </tbody>

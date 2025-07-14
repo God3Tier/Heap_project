@@ -9,9 +9,9 @@ import { SignUp } from './pages/signup'
 import { Search } from './pages/search'
 import { Reviews } from './pages/reviews'
 import { ListReviews } from './pages/list-reviews'
+import { Maps } from './pages/maps'
 
 function App() {
-  
   return (
     <>
       <Router>
@@ -24,6 +24,7 @@ function App() {
           <Route path="/search" element={<Search/>}/>
           <Route path="/reviews" element={<Reviews/>}/>
           <Route path="/list-reviews" element={<ListReviews/>}/>
+          <Route path="/maps" element={<Maps/>}/>
           <Route path="/test" element={<Test/>}/>
           </Route>
         </Routes>
