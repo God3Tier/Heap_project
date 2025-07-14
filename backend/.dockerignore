@@ -1,0 +1,7 @@
+target/
+build/
+*.iml
+*.log
+.git
+.dockerignore
+Dockerfile

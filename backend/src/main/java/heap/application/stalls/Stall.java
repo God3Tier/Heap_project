@@ -23,11 +23,13 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @Table(name = "stall")
 @Data
+@NoArgsConstructor
 public class Stall implements Comparable<Stall> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,9 +100,4 @@ public class Stall implements Comparable<Stall> {
 		
 		return (int)Math.round(s2.rating - this.rating);
 	}
-
-
-    public Stall() {
-        //TODO Auto-generated constructor stub
-    }
 }

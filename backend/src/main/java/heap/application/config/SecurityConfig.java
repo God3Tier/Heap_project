@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import heap.application.security.filter.SecurityAuthenticationFilter;
+import io.github.cdimascio.dotenv.Dotenv;
 
 @EnableMethodSecurity
 @Configuration
@@ -26,6 +27,7 @@ public class SecurityConfig {
 
     private final SecurityAuthenticationFilter securityAuthenticationFilter;
     private final AccessDeniedHandler accessDeniedHandler;
+    private final Dotenv dotenv = Dotenv.load();
 
     public SecurityConfig(
             SecurityAuthenticationFilter securityAuthenticationFilter,
@@ -80,7 +82,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedOrigins(List.of(dotenv.get("FRONTEND_URL") + dotenv.get("FRONTEND_PORT")));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
