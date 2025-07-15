@@ -40,12 +40,12 @@ export function SignUp() {
             <div className="right-panel">
                 <img className="logo" src={logo} alt="UP2U Logo" />
 
-                <label htmlFor="username">Email</label>
+                <label htmlFor="username">Username</label>
                 <input 
                     type="text" 
                     id="username" 
                     value={username}
-                    placeholder="name@email.com"
+                    placeholder="Enter your username"
                     onChange={(e) => setUsername(e.target.value)}
                 />
 
@@ -57,10 +57,6 @@ export function SignUp() {
                     placeholder="Enter your password"
                     onChange={(e) => setPassHash(e.target.value)}
                 />
-
-                <p className="disclaimer">
-                    We will send an email with a confirmation link for registration.
-                </p>
                 <button className="continue-btn" onClick={signupRequest}>Continue</button>
                 <p>{allow}</p>
             </div>
