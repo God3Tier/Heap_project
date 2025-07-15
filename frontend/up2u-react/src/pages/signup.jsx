@@ -1,6 +1,7 @@
 import '../style/SignUp.css';
 import axios from 'axios';
 import { useState } from 'react';
+import logo from "../assets/logo.png"
 
 export function SignUp() {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -37,11 +38,7 @@ export function SignUp() {
                 <img src="/assets/food-banner.png" alt="Food" />
             </div>
             <div className="right-panel">
-                <img className="logo" src="/assets/logo.png" alt="UP2U Logo" />
-                <button className="google-btn">Log in with Google</button>
-                <button className="singpass-btn">Sign up with Singpass</button>
-                <hr className="divider" />
-                <p className="or">OR</p>
+                <img className="logo" src={logo} alt="UP2U Logo" />
 
                 <label htmlFor="username">Email</label>
                 <input 
