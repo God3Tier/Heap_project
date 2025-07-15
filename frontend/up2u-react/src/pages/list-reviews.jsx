@@ -18,9 +18,9 @@ export function ListReviews(){
 
     useEffect(() => {
         if(localStorage.getItem('username') != null){
-            setUser(localStorage.getItem('username'));
-            setUserId(localStorage.getItem('userId'));
-            setToken(localStorage.getItem('token'));
+            // setUser(localStorage.getItem('username'));
+            // setUserId(localStorage.getItem('userId'));
+            // setToken(localStorage.getItem('token'));
         }
     },[]);
 
@@ -33,10 +33,9 @@ export function ListReviews(){
 
             const postResponse = await axios.post(`${backendUrl}/api/filter`, filterDTO);
             setToPrint(postResponse.data);
-            console.log(process.env.TEST);
 
             const selectedStall = toPrint.find(item => item.stallId === selectedId);
-            setStall(" " + selectedStall.name);
+            // setStall(" " + selectedStall.name);
         } catch(error) {
             console.error('Error', error);
         }
