@@ -40,15 +40,27 @@ export function Login(){
     return(
         <div className="login-body">
             <h1>Login page</h1>
-            <form className="login-form">
-                <input type="text" id="username" name="username" value={username} placeholder="Enter your username" onChange={(e) => setUsername(e.target.value)}></input>
-                <input type="password" id="passHash" name="passHash" value={password} placeholder="Enter your password" onChange={(e) => setPassword(e.target.value)}></input>
-                {/* <button onClick={loginRequest}>Sign Up</button> */}
-                {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
+            <form className="login-form" onSubmit={(e) => e.preventDefault()}>
+                <input 
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={username}
+                    placeholder="Enter your username"
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <input
+                    type="password"
+                    id="passHash"
+                    name="passHash"
+                    value={password}
+                    placeholder="Enter your password"
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <button onClick={loginRequest}>Login</button>
             </form>
             <p>{allow}</p>
-            <button onClick={loginRequest}>Login</button>
-            {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
+
         </div>
     )
 }

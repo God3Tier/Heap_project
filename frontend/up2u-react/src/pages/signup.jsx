@@ -7,19 +7,18 @@ export function SignUp(){
     const role = ["ROLE_REGULAR"];
     const [username, setUsername] = useState("");
     const [passHash, setPassHash] = useState("");
+    const [allow, setAllow] = useState("");
     const userDTO = {
         username,
         passHash,
         role
     };
-    const [allow, setAllow] = useState("");
 
     const signupRequest = async() => {
         try {
             const postResponse = await axios.post(`${backendUrl}/user/create_user`, userDTO);
             console.log('POST success:', postResponse.data);
             setAllow("Account Created");
-
         } catch (error) {
             console.error('Error:', error);
             if(error.status == '500'){
@@ -27,21 +26,37 @@ export function SignUp(){
                 setAllow("Username already in use");
             }
         }
-
     };
 
     return(
-        <div className="signup-body">
-            <h1>Signup page</h1>
-            <form className="signup-form">
-                <input type="text" id="username" name="username" value={username} placeholder="Enter your username" onChange={(e) => setUsername(e.target.value)}></input>
-                <input type="password" id="passHash" name="passHash" value={passHash} placeholder="Enter your password" onChange={(e) => setPassHash(e.target.value)}></input>
-                {/* <button onClick={signupRequest}>Sign Up</button> */}
-                {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
-            </form>
-            <p>{allow}</p>
-            <button onClick={signupRequest}>Sign Up</button>
-            {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
+        <div className="signup-container">
+            <div className="left-panel">
+                <img src="/assets/food-banner.png" alt="Food" />
+            </div>
+            <div className="right-panel">
+                <img className="logo" src="/assets/logo.png" alt="UP2U Logo" />
+
+                <label htmlFor="username">Username</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    value={username}
+                    placeholder="Enter your Username"
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+
+                <label htmlFor="passHash">Password</label>
+                <input 
+                    type="password" 
+                    id="passHash" 
+                    value={passHash}
+                    placeholder="Enter your password"
+                    onChange={(e) => setPassHash(e.target.value)}
+                />
+
+                <button className="continue-btn" onClick={signupRequest}>Continue</button>
+                <p>{allow}</p>
+            </div>
         </div>
     )
 }

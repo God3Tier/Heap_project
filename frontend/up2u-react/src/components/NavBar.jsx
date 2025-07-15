@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+// import "../style/NavBar.css"
 
 export function NavBar(){
     const token = localStorage.getItem('token');

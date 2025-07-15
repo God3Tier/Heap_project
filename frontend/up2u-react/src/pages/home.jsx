@@ -20,7 +20,6 @@ export function Home(){
         }
     }, []);
 
-
     return(
         <div className="home-body">
             <h1>Home page</h1>
@@ -42,20 +41,41 @@ export function Home(){
                     <select defaultValue="all"
                             onChange={e => setBudget(e.target.value)}>
                         <option value="all">All</option>
-                        <option value="1">Less than 1</option>
-                        <option value="2">Less than 20</option>
-                        <option value="3">$$$</option>
-                        <option value="4">$$$$</option>
-                        <option value="5">$$$$$</option>
+                        <option value="10">Less than 10</option>
+                        <option value="20">Less than 20</option>
+                        <option value="30">Less than 30</option>
+                        <option value="40">Less than 40</option>
+                        <option value="50">Less than 50</option>
                     </select>
                     <label>Meal Type:</label>
                     <select defaultValue="all"
                             onChange={e => setMeal(e.target.value)}>
-                        <option value="all">All</option>
-                        <option value="korean">Korean</option>
-                        <option value="japanese">Japanese</option>
-                        <option value="chinese">Chinese</option>
-                        <option value="indian">Indian</option>
+                        <option value="all">All</option> 
+                        <optgroup label="Asian">
+                            <option value="chinese">Chinese</option>
+                            <option value="japanese">Japanese</option>
+                            <option value="korean">Korean</option>
+                            <option value="thai">Thai</option>
+                            <option value="local">Local</option>
+                            <option value="malay">Malay</option>
+                        </optgroup>
+                        <optgroup label="Western">
+                            <option value="italian">Italian</option>
+                            <option value="french">French</option>
+                            <option value="international">International</option>
+                            <option value="fast_food">Fast Food</option>
+                        </optgroup>
+                            <optgroup label="Vegetarian & Healthy">
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="light_meal">Light Meal</option>
+                            <option value="salad">Salad</option>
+                        </optgroup>
+                        <optgroup label="Desserts & Snacks">
+                            <option value="dessert">Dessert</option>
+                            <option value="snack">Snacks</option>
+                            <option value="beverage">Beverages</option>
+                            <option value="coffee">Coffee</option>
+                        </optgroup>
                     </select>
                     <label>Min. Rating:</label>
                     <select defaultValue="all"
