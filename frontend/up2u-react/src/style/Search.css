@@ -1,4 +1,15 @@
+.search-body{
+    display: flex;
+    flex-direction: row;
+}
+
 .stalls-table{
     display: flex;
     flex-direction: row;
+}
+
+.search-map{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
