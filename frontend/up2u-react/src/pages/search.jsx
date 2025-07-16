@@ -118,11 +118,6 @@ export function Search(){
     
     return (
         <>
-        <div>location: {location}</div>
-        <div>budget: {budget}</div>
-        <div>meal: {mealType}</div>
-        <div>min rating: {rating}</div>
-
         <div className="search-body">
             <div className="stalls-table">
                 <table>
@@ -155,7 +150,6 @@ export function Search(){
                 </table>
             </div>
             <div className="search-map">
-                <div>map here :D</div>
                 <button onClick={handleSearchSelected}>Search Selected</button>
                 {isLoaded ? (
                     <GoogleMap

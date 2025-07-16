@@ -94,9 +94,6 @@ export function Home(){
                 <div className="map">
                     <Link to="/maps"><p>MAP HERE</p></Link>
                 </div>
-                <div className="map2">
-                    <p>Map here</p>
-                </div>
             </div>
         </div>
     )

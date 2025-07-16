@@ -18,9 +18,11 @@ export function NavBar(){
             </div>
             <h1>UP2U</h1>
             <div className="back">
-                <Link to="/reviews"><button>Give Reviews</button></Link>
                 {isLoggedIn ? (
-                    <button onClick={handleLogout}>Logout</button>
+                    <>
+                        <Link to="/reviews"><button>Give Reviews</button></Link>
+                        <button onClick={handleLogout}>Logout</button>
+                    </>
                     ) : (
                     <>
                         <Link to="/login">
