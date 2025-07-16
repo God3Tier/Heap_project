@@ -2,6 +2,7 @@ import '../style/SignUp.css';
 import axios from 'axios';
 import { useState } from 'react';
 import logo from "../assets/logo.png"
+import background from "../assets/background.png"
 
 export function SignUp() {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -35,7 +36,7 @@ export function SignUp() {
     return (
         <div className="signup-container">
             <div className="left-panel">
-                <img src="/assets/food-banner.png" alt="Food" />
+                <img src={background} alt="Food" />
             </div>
             <div className="right-panel">
                 <img className="logo" src={logo} alt="UP2U Logo" />

@@ -36,6 +36,8 @@ export function Home(){
                         <option value="Bras Basah MRT">Bras Basah MRT</option>
                         <option value="City Hall MRT">City Hall MRT</option>
                         <option value="Bugis MRT">Bugis MRT</option>
+                        <option value="Dhoby Ghaut MRT">Dhoby Ghaut MRT</option>
+                        <option value="Somerset MRT">Somerset MRT</option>
                     </select>
                     <label>Budget:</label>
                     <select defaultValue="all"
@@ -90,11 +92,11 @@ export function Home(){
                     <Link to={"/search"} state={dataToPass}><button>Search</button></Link>
                 </nav>
             </div>
-            <div className="mapBody">
+            {/* <div className="mapBody">
                 <div className="map">
                     <Link to="/maps"><p>MAP HERE</p></Link>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
