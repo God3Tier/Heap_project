@@ -52,11 +52,11 @@ README.md
 .mtj.tmp
 .mvn/timing.properties
 buildNumber.properties
-dependency-reduced-pom.xml
+#dependency-reduced-pom.xml
 hs_err_pid*
-pom.xml.next
-pom.xml.releaseBackup
-pom.xml.tag
-pom.xml.versionsBackup
+#pom.xml.next
+#pom.xml.releaseBackup
+#pom.xml.tag
+#pom.xml.versionsBackup
 release.properties
 replay_pid*
