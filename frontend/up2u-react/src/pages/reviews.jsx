@@ -12,6 +12,7 @@ export function Reviews(){
     const [user, setUser] = useState("Unknown");
     const [userId, setUserId] = useState(0); //int
     const [token, setToken] = useState("");
+    const isLoggedIn = !!token;
 
     const reviewDTO = {
         reviewId: null,
@@ -28,7 +29,13 @@ export function Reviews(){
             setUserId(localStorage.getItem('userId'));
             setToken(localStorage.getItem('token'));
         }
+        // else{
+        //     window.location.href = "/";
+        // }
     },[]);
+    const home = async() => {
+        window.location.href = "/";
+    };
 
     // to post reviews
     const postReview = async() =>{
@@ -46,18 +53,18 @@ export function Reviews(){
 
     return(
         <>
-        <div className="reviews-body">
-            <form>
-                <label>User:</label><input value={user} disabled/><br/>
-                <StallsDropdown onChange={e => setStallId(e.target.value)}/><br/>
+            {isLoggedIn ? (<div className="reviews-body">
+                <form>
+                    <label>User:</label><input value={user} disabled/><br/>
+                    <StallsDropdown onChange={e => setStallId(e.target.value)}/><br/>
 
-                <RatingDropdown onChange={e => setRating(e.target.value)}/><br/>
+                    <RatingDropdown onChange={e => setRating(e.target.value)}/><br/>
 
-                <label>Review:</label>
-                <textarea onChange={e => setReviewDescription(e.target.value)}></textarea><br/>
-            </form>
-            <button onClick={postReview}>Test</button>
-        </div>
+                    <label>Review:</label>
+                    <textarea onChange={e => setReviewDescription(e.target.value)}></textarea><br/>
+                </form>
+                <button onClick={postReview}>Give Review</button>
+            </div>):(<>You have no access to this page <button onClick={home}>Back to Home</button></>)}
         </>
     )
 }
