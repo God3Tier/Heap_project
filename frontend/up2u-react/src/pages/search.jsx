@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import '../style/Search.css'
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from "@react-google-maps/api";
 import React from "react";
-import { Marker } from "@react-google-maps/api";
 
 export function Search(){
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -21,6 +20,8 @@ export function Search(){
     };
     const [toPrint, setToPrint] = useState([]);
     const [markers, setMarkers] = useState([]);
+    const [activeMarker, setActiveMarker] = useState(null);
+
 
     // onload, access backend to get the list of items based off filterDTO
     useEffect(() => {
@@ -170,7 +171,17 @@ export function Search(){
                                     key={idx}
                                     position={{ lat: marker.lat, lng: marker.lng }}
                                     label={(idx + 1).toString()}
-                                />
+                                    onClick={() => setActiveMarker(idx)}
+                                >
+                                    {activeMarker === idx && (
+                                    <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                                        <div>
+                                            {/* <p>{marker.toPrint}</p> */ /* need set as stall name*/}
+                                            <p>{marker.address}</p>
+                                        </div>
+                                    </InfoWindow>
+                                    )}
+                                </Marker>
                                 ))}
                             </>
                     </GoogleMap>
@@ -184,4 +195,3 @@ export function Search(){
         </>
     )
 }
-
