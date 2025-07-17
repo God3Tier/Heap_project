@@ -8,14 +8,15 @@ const containerStyle = {
 }
 
 const center = {
-  lat: -3.745,
-  lng: -38.523,
+  lat: 1.2970400194243092, 
+  lng: 103.8495403289578,
 }
 
 export function Maps() {
+  const map_api_key = import.meta.env.VITE_MAPS_API;
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'API_KEY',
+    googleMapsApiKey: map_api_key,
   })
 
   const [map, setMap] = React.useState(null)

@@ -2,12 +2,10 @@ package heap.application.controller;
 
 import java.util.List;
 
-import org.hibernate.sql.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +18,6 @@ import heap.application.dto.CreateUserDTO;
 import heap.application.dto.DeleteReviewDTO;
 import heap.application.dto.ReviewDTO;
 import heap.application.dto.UpdateReviewDTO;
-import heap.application.dto.UserResponseWithCredentials;
 import heap.application.review.Review;
 import heap.application.service.UserReviewService;
 import heap.application.stalls.Stall;

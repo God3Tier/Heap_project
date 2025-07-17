@@ -18,9 +18,31 @@ export function AboutUs(){
             </div>
             <div className="team">
                 <div className="team-text">
-                    <h5>Together</h5>
+                    <h3>Together</h3>
                     <h2>Our Team</h2>
                     <label>Meet the passionate minds behind UP2U.</label>
+                    <div className="row1">
+                        <div className="person">
+                            <img src={logo} alt="UP2U Logo"/>
+                            <strong>Joseph Yau</strong>
+                            <span>Backend Terrorist</span>
+                        </div>
+                        <div className="person">
+                            <img src={logo} alt="UP2U Logo"/>
+                            <strong>Clemira Jenkins</strong>
+                            <span>Frontend Terrorist</span>
+                        </div>
+                        <div className="person">
+                            <img src={logo} alt="UP2U Logo"/>
+                            <strong>Orvin Filbert</strong>
+                            <span>Pure Terrorist</span>
+                        </div>
+                        <div className="person">
+                            <img src={logo} alt="UP2U Logo"/>
+                            <strong>Yong Huey</strong>
+                            <span>Burden</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

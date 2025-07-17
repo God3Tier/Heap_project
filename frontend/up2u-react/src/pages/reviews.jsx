@@ -1,22 +1,19 @@
 import '../style/Reviews.css'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { StallsDropdown } from '../components/StallsDropdown';
+import { RatingDropdown } from '../components/RatingDropdown';
 
 export function Reviews(){
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [rating, setRating] = useState(0); //int
     const [stallId, setStallId] = useState(0); //int
     const [reviewDescription, setReviewDescription] = useState(""); 
     const [user, setUser] = useState("Unknown");
     const [userId, setUserId] = useState(0); //int
     const [token, setToken] = useState("");
-    const [toPrint, setToPrint] = useState([]);
+    const isLoggedIn = !!token;
 
-    const filterDTO = {
-        mealType: "all",
-        location: "all",
-        budget: "all",
-        rating: "all"
-    };
     const reviewDTO = {
         reviewId: null,
         rating,
@@ -27,28 +24,18 @@ export function Reviews(){
 
     // on page load
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // POST to /api/filter
-                // and get what is passed to us
-                console.log(filterDTO);
-                const postResponse = await axios.post('http://localhost:8080/api/filter', filterDTO);
-                console.log('POST success:', postResponse.data);
-                setToPrint(postResponse.data);
-
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
-
-        fetchData();
-
         if(localStorage.getItem('username') != null){
             setUser(localStorage.getItem('username'));
             setUserId(localStorage.getItem('userId'));
             setToken(localStorage.getItem('token'));
         }
+        // else{
+        //     window.location.href = "/";
+        // }
     },[]);
+    const home = async() => {
+        window.location.href = "/";
+    };
 
     // to post reviews
     const postReview = async() =>{
@@ -66,37 +53,45 @@ export function Reviews(){
         }
     };
 
-    return(
+    return (
         <>
-        <div className="reviews-body">
-            <form>
-                <label>User:</label><input value={user} disabled/><br/>
-                
-                <label>Stall:</label>
-                <select defaultValue="0"
-                        onChange={e => setStallId(e.target.value)}>
-                    <option value="0" disabled>Select Stall</option>
-                    {toPrint.map((item, idx) => (
-                    <option value={item.stallId} key={idx}>{item.name}</option>
-                    ))}
-                </select><br/>
-
-                <label>Rating:</label>
-                <select defaultValue="0"
-                        onChange={e => setRating(e.target.value)}>
-                    <option value="0" disabled>Select Rating</option>
-                    <option value="1">1 Star</option>
-                    <option value="2">2 Star</option>
-                    <option value="3">3 Star</option>
-                    <option value="4">4 Star</option>
-                    <option value="5">5 Star</option>
-                </select><br/>
-
-                <label>Review:</label>
-                <textarea onChange={e => setReviewDescription(e.target.value)}></textarea><br/>
-            </form>
-            <button onClick={postReview}>Test</button>
-        </div>
+          {isLoggedIn ? (
+            <div className="reviews-body">
+              {/* Heading */}
+              <h2 className="page-title">Leave a Review</h2>
+      
+              {/* Review Form Section */}
+              <section className="review-form-section">
+                <form>
+                  <div className="form-group">
+                    <label>User:</label>
+                    <input value={user} disabled />
+                  </div>
+      
+                  <div className="form-group">
+                    <StallsDropdown onChange={e => setStallId(e.target.value)} />
+                  </div>
+      
+                  <div className="form-group">
+                    <RatingDropdown onChange={e => setRating(e.target.value)} />
+                  </div>
+      
+                  <div className="form-group">
+                    <label>Review:</label>
+                    <textarea onChange={e => setReviewDescription(e.target.value)} rows="4"></textarea>
+                  </div>
+      
+                  <button type="button" onClick={postReview}>Give Review</button>
+                </form>
+              </section>
+          
+            </div>
+          ) : (
+            <>
+              You have no access to this page
+              <button onClick={home}>Back to Home</button>
+            </>
+          )}
         </>
-    )
-}
+      );
+}      

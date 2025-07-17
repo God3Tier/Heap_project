@@ -1,4 +1,17 @@
+.search-body{
+    display: flex;
+    flex-direction: row;
+    width: 99.2vw;
+}
+
 .stalls-table{
     display: flex;
     flex-direction: row;
 }
+
+.search-map{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+

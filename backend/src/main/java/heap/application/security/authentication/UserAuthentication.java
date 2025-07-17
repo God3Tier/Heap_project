@@ -41,7 +41,7 @@ public record UserAuthentication(
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-        // NoOp
+        // Does not work as only Authenticated sessions should spawn this class
     }
 
     @Override

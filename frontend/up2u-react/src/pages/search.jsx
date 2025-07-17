@@ -3,17 +3,15 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import '../style/Search.css'
-
-function FetchStuff(){
-    axios.get('http://localhost:8080/api/stalls').then(response => {
-        console.log('works');
-    })
-}
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from "@react-google-maps/api";
+import React from "react";
 
 export function Search(){
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const data = useLocation();
     const { location, budget, mealType, rating } = data.state || {};
     const [stalls, setStalls] = useState([]);
+    const [selectedStall, setSelectedStall] = useState([]);
     const filterDTO = {
         mealType,
         location,
@@ -21,7 +19,11 @@ export function Search(){
         rating
     };
     const [toPrint, setToPrint] = useState([]);
+    const [markers, setMarkers] = useState([]);
+    const [activeMarker, setActiveMarker] = useState(null);
 
+
+    // onload, access backend to get the list of items based off filterDTO
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -119,37 +121,74 @@ export function Search(){
     
     return (
         <>
-        <div>location: {location}</div>
-        <div>budget: {budget}</div>
-        <div>meal: {mealType}</div>
-        <div>min rating: {rating}</div>
-        <button onClick={FetchStuff}>Stuff</button>
-
-        <div className="stalls-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Stalls:</th>
-                        <th>Address:</th>
-                        <th>Average Price:</th>
-                        <th>Rating:</th>
-                        <th>View Review:</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {toPrint.map((item, idx) => (
-                        <tr key={idx}>
-                            <td>{item.name}</td>
-                            <td>{item.address}</td>
-                            <td>{item.price}</td>
-                            <td>{item.rating}</td>
-                            <td><Link to="/list-reviews"><button/></Link></td>
+        <div className="search-body">
+            <div className="stalls-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Select:</th>
+                            <th>Stalls:</th>
+                            <th>Average Price:</th>
+                            <th>Rating:</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {toPrint.map((item, idx) => (
+                            <tr key={idx}>
+                                <td>
+                                    <input 
+                                    type="checkbox" 
+                                    value={item.address} 
+                                    checked={selectedStall.includes(item.address)}
+                                    onChange={handleCheckboxChange}
+                                    disabled={!selectedStall.includes(item.address) && selectedStall.length >= 5}
+                                    />
+                                </td>
+                                <td>{item.name}</td>
+                                <td>{item.price}</td>
+                                <td>{item.rating}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="search-map">
+                <button onClick={handleSearchSelected}>Search Selected</button>
+                {isLoaded ? (
+                    <GoogleMap
+                        mapContainerStyle={containerStyle}
+                        center={center}
+                        zoom={15}
+                        onLoad={onLoad}
+                        onUnmount={onUnmount}
+                        >
+                            <>
+                                {markers.map((marker, idx) => (
+                                <Marker
+                                    key={idx}
+                                    position={{ lat: marker.lat, lng: marker.lng }}
+                                    label={(idx + 1).toString()}
+                                    onClick={() => setActiveMarker(idx)}
+                                >
+                                    {activeMarker === idx && (
+                                    <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                                        <div>
+                                            <strong>{marker.name}</strong><br/>
+                                            <span>{marker.address}</span>
+                                        </div>
+                                    </InfoWindow>
+                                    )}
+                                </Marker>
+                                ))}
+                            </>
+                    </GoogleMap>
+                    ) : (
+                        <></>
+                    )
+                }
+            </div>
         </div>
+        
         </>
     )
 }
-
