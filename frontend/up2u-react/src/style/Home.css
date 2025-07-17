@@ -71,6 +71,7 @@
 .home-body > * {
   position: relative;
   z-index: 1;
+  width: 99.2vw;
 }
 
 
@@ -89,26 +90,6 @@
     gap: 1rem;
     flex-wrap: wrap;
   }
-
-
-.mapBody {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.map {
-  background-color: aqua;
-  width: 100px;
-  height: 100px;
-}
-
-.map2 {
-  background-color: #ffb627;
-  width: 100px;
-  height: 100px;
-}
 
 .search-section {
   display: flex;

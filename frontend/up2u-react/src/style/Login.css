@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   min-height: 80vh;
+  width: 99.2vw;
 }
 
 .login-form {

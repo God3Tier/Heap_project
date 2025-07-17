@@ -12,7 +12,7 @@ export function Reviews(){
     const [user, setUser] = useState("Unknown");
     const [userId, setUserId] = useState(0); //int
     const [token, setToken] = useState("");
-    const isLoggedIn = !!token;
+    const isLoggedIn = true;
 
     const reviewDTO = {
         reviewId: null,

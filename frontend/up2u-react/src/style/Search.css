@@ -1,6 +1,7 @@
 .search-body{
     display: flex;
     flex-direction: row;
+    width: 99.2vw;
 }
 
 .stalls-table{

@@ -30,7 +30,7 @@ export function Home(){
           <div className="hero-section">
             <div className="hero-text">
               <h1>
-                Hello <span className="username">“{user || 'User'}”</span>!<br />
+                Hello<span className="username">{user}</span>!<br />
                 Ready to <span className="highlight">satisfy</span><br />
                 your hunger and wallet?
               </h1>
