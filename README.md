@@ -1,64 +1,164 @@
-# Welcome to Up2u 
-### What is this 
-This is our mini project that allows students near smu to quickly find food places
-based on the MRTs near smu. We allow students to filter by average price, cuisine type, 
-rating from other users and location. 
+# Welcome to Up2u
 
-## How to use on the cloud 
-Go to [our webpage](https://up2u-alpha.vercel.app 'up2u to find out') and experience it for yourself now
+## What is this?
 
-## How to use locally
+**Up2u** is our mini project designed to help students near **SMU** quickly find food places based on nearby MRT stations.  
+Users can filter restaurants based on:
 
-***NOTE: This is highly not recommended as you would need your own database, your own
-         google api login with both map javascript api and geocode api and your own information ***
+- **Average price**
+- **Cuisine type**
+- **User ratings**
+- **Location proximity**
 
-### Backend 
-  1. Ensure Java 21 is Installed (verifyable by typing java --version)
-  ####    MacOs 
-  With Package Manager (brew. If you used Nix, you should know how to urself)
-    1. Type the command **brew install openjdk@21**
-    2. Type **vim .zshrc** (or whatever terminal config you use)
-    3. Add the following 
-        export JAVA_HOME=/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home/
-        export PATH=$JAVA_HOME/bin:$PATH
-  Without Package Manager
-    1. Follow the instruction from 
-          https://docs.oracle.com/en/java/javase/24/install/installation-jdk-macos.html#GUID-F575EB4A-70D3-4AB4-A20E-DBE95171AB5F
-      **BUT** use the Java 21 and not the latest version 
-  ####    Windows 
-    1. Follow the instruction from 
-          https://docs.oracle.com/en/java/javase/24/install/installation-jdk-macos.html#GUID-F575EB4A-70D3-4AB4-A20E-DBE95171AB5F
-      **BUT** use the Java 21 and not the latest version 
-  ####    Linux 
-    1. Use your package manager to install openjdk 21
-  2. Enter the backend folder with ** cd backend **
-  3. Create a .env file with the following configurations 
-        DATABASE_HOST=DATABASEHOST
-        DATABASE_PORT=5432
-        DATABASE_NAME=DATABASENAME
-        DATABASE_USER=DATABASEUSER
-        DATABASE_PASSWORD=YOURDATABASEPASS
-        DATABASE_URL=YOURDATABASEPASSWORD
-        SECRET_PASSCODE=YOURSECRETPASSWORD
-        FRONTEND_URL=http://localhost:
-        FRONTEND_PORT=5173
-  4. Run the project: 
-  #### With maven installed
-    mvn clean install
-    mvn spring-boot:run   
-  #### Without maven installed
-    ./mvnw clean install 
-    ./mvnw spring-boot:run 
-#### Frontend
-  1. Ensure npm is installed 
-  #### With package manager 
-    1. Use your package manager to install npm (e.g. debian based distros sudo apt install npm or macos brew install npm)
-  #### Without package manager
-    2. Follow the instructions on https://nodejs.org/en/download/ with proper os selected
-  2. Enter the frontend folder **cd frontend** 
-  3. Create a .env file with the following 
-        VITE_BACKEND_URL=http://localhost:8080
-        VITE_MAPS_API=YOUR_GOOGLE_MAPS_API
-  4. Enter the frontend folder **cd frontend/up2u-react** 
-  5. Run the command **npm i** to install all required dependencies 
-  6. Run **npm run dev** to start the frontend 
+---
+
+## 🌐 How to Use on the Cloud
+
+Head over to [our live webpage](https://up2u-alpha.vercel.app 'up2u to find out') and experience it for yourself!
+
+---
+
+## 🖥️ How to Use Locally
+
+> ⚠️ **Note:** Local setup is **not recommended** unless you have:
+>
+> - Your own database setup  
+> - Your own Google Maps API key (with both **Map JavaScript API** and **Geocode API** enabled)  
+> - The required API credentials and information  
+
+---
+
+## 🔧 Backend Setup
+
+### 1. Ensure Java 21 is Installed
+
+Verify installation with:
+
+```bash
+java --version
+```
+
+#### macOS
+
+**With Homebrew:**
+
+```bash
+brew install openjdk@21
+```
+
+Then add to your `.zshrc` (or `.bashrc`):
+
+```bash
+export JAVA_HOME=/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home/
+export PATH=$JAVA_HOME/bin:$PATH
+```
+
+**Without Homebrew:**  
+Follow [this official Oracle guide](https://docs.oracle.com/en/java/javase/24/install/installation-jdk-macos.html#GUID-F575EB4A-70D3-4AB4-A20E-DBE95171AB5F)  
+→ Select **Java 21**, not the latest version.
+
+#### Windows
+
+Follow [this official Oracle guide](https://docs.oracle.com/en/java/javase/24/install/installation-jdk-macos.html#GUID-F575EB4A-70D3-4AB4-A20E-DBE95171AB5F), but make sure you download **Java 21** for Windows.
+
+#### Linux
+
+Use your package manager:
+
+```bash
+sudo apt install openjdk-21-jdk      # Debian/Ubuntu
+sudo dnf install java-21-openjdk     # Fedora/RHEL
+```
+
+---
+
+### 2. Backend Setup Instructions
+
+1. Navigate to the backend folder:
+
+```bash
+cd backend
+```
+
+2. Create a `.env` file:
+
+```env
+DATABASE_HOST=your_database_host
+DATABASE_PORT=5432
+DATABASE_NAME=your_database_name
+DATABASE_USER=your_database_user
+DATABASE_PASSWORD=your_database_password
+DATABASE_URL=your_database_url
+SECRET_PASSCODE=your_secret_pass
+FRONTEND_URL=http://localhost
+FRONTEND_PORT=5173
+```
+
+3. Run the backend:
+
+**With Maven installed:**
+
+```bash
+mvn clean install
+mvn spring-boot:run
+```
+
+**Without Maven installed:**
+
+```bash
+./mvnw clean install
+./mvnw spring-boot:run
+```
+
+---
+
+## 🎨 Frontend Setup
+
+### 1. Install Node.js and npm
+
+**With package manager:**
+
+```bash
+sudo apt install npm             # Debian/Ubuntu
+brew install npm                 # macOS
+```
+
+**Without package manager:**  
+Install from [https://nodejs.org/en/download/](https://nodejs.org/en/download/) (select the correct OS)
+
+---
+
+### 2. Frontend Setup Instructions
+
+1. Navigate to the frontend folder:
+
+```bash
+cd frontend
+```
+
+2. Create a `.env` file:
+
+```env
+VITE_BACKEND_URL=http://localhost:8080
+VITE_MAPS_API=your_google_maps_api_key
+```
+
+3. Navigate to the React app directory:
+
+```bash
+cd up2u-react
+```
+
+4. Install dependencies:
+
+```bash
+npm i
+```
+
+5. Start the frontend dev server:
+
+```bash
+npm run dev
+```
+
+---
