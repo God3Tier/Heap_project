@@ -16,7 +16,7 @@ export function NavBar(){
                 <Link to="/about-us"><button>About Us</button></Link>
                 <Link to="/list-reviews"><button>List Reviews</button></Link>
             </div>
-            <h1>UP2U</h1>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}><h1>UP2U</h1></Link>
             <div className="back">
                 {isLoggedIn ? (
                     <>

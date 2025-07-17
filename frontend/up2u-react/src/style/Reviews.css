@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     text-align: left;
-    width: 99.2vw;
+    width: 97.1vw;
     background-image: url('../assets/background.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -64,3 +64,7 @@
     margin-top: 10px;
   }
   
+textarea{
+  resize: none;
+
+}

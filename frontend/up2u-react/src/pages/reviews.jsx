@@ -12,7 +12,7 @@ export function Reviews(){
     const [user, setUser] = useState("Unknown");
     const [userId, setUserId] = useState(0); //int
     const [token, setToken] = useState("");
-    const isLoggedIn = true;
+    const isLoggedIn = !!token;
 
     const reviewDTO = {
         reviewId: null,
@@ -45,6 +45,8 @@ export function Reviews(){
             headers: {Authorization: `Bearer ${token}`}});
             const updateStall = await axios.post(`${backendUrl}/api/update_stall/${stallId}`);
             console.log('POST success:', postResponse.data);
+            alert("Review Given");
+            window.location.reload();
 
         } catch(error){
             console.error('Error', error);
@@ -76,7 +78,7 @@ export function Reviews(){
       
                   <div className="form-group">
                     <label>Review:</label>
-                    <textarea onChange={e => setReviewDescription(e.target.value)}></textarea>
+                    <textarea onChange={e => setReviewDescription(e.target.value)} rows="4"></textarea>
                   </div>
       
                   <button type="button" onClick={postReview}>Give Review</button>
