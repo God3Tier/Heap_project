@@ -107,13 +107,10 @@ export function Search(){
 
     const handleSearchSelected = async () => {
         const geocodedMarkers = await Promise.all(
-        selectedStall.map(async (address) => {
-            const matched = toPrint.find((stall) => stall.address === address);
+            selectedStall.map(async (address) => {
             const coords = await geocodeAddress(address);
-            return coords && matched
-            ? { name: matched.name, address, lat: coords.lat, lng: coords.lng }
-            : null;
-        })
+            return coords ? { address, lat: coords.lat, lng: coords.lng } : null;
+            })
         );
         // Remove nulls (failed geocodes)
         setMarkers(geocodedMarkers.filter((m) => m !== null));
@@ -173,8 +170,8 @@ export function Search(){
                                     {activeMarker === idx && (
                                     <InfoWindow onCloseClick={() => setActiveMarker(null)}>
                                         <div>
-                                            <strong>{marker.name}</strong><br/>
-                                            <span>{marker.address}</span>
+                                            {/* <p>{marker.toPrint}</p> */ /* need set as stall name*/}
+                                            <p>{marker.address}</p>
                                         </div>
                                     </InfoWindow>
                                     )}
