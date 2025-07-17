@@ -80,7 +80,6 @@ public class StallServiceImpl implements StallService {
     /*
      * updaters
      */
-    
     @Transactional
     public void updateNewReview(Integer stallId) {
         Stall stall = stallRepo.findByStallId(stallId)
@@ -97,7 +96,6 @@ public class StallServiceImpl implements StallService {
     /*
      * deleters
      */
-    
     @Transactional
     public void deleteStall(Integer id) {
         Stall removed = stallRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Stall is not found"));

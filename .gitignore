@@ -1,4 +1,5 @@
-/target/
+backend/target/
+backend/.factorypath
 
 .classpath
 .idea/
@@ -11,3 +12,7 @@ HELP.md
 node_modules/
 DepricatedStallRepo.txt
 .DS_Store
+.vscode/
+
+.vercel
+.env*.local

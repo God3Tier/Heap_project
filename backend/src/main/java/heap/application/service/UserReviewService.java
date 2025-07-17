@@ -9,7 +9,6 @@ import heap.application.dto.UpdateReviewDTO;
 import heap.application.dto.UserResponseWithCredentials;
 import heap.application.review.Review;
 import heap.application.stalls.Stall;
-import heap.application.user.User;
 
 public interface UserReviewService {
 

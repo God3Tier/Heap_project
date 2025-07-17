@@ -24,6 +24,7 @@ import jakarta.validation.constraints.NotNull;
 public class MyApplication {
     
     private static final Logger log = LoggerFactory.getLogger(MyApplication.class);
+    private static final Dotenv dotenv = Dotenv.load();
     
 	public static void main(String[] args) {
 		SpringApplication.run(MyApplication.class, args);
@@ -31,7 +32,6 @@ public class MyApplication {
 	
 	@Bean
 	public DataSource dataSource() {
-        Dotenv dotenv = Dotenv.load();
         return DataSourceBuilder.create()
             .url(dotenv.get("DATABASE_URL") + dotenv.get("DATABASE_PASSWORD"))
             .username(dotenv.get("DATABASE_USER"))
@@ -46,8 +46,7 @@ public class MyApplication {
 			@Override
 			public void addCorsMappings(@NotNull CorsRegistry registry) {
 				registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173")
-                        ;
+                        .allowedOrigins(dotenv.get("FRONTEND_URL") + dotenv.get("FRONTEND_PORT"));
 			}
 		};
 	}

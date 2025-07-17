@@ -12,7 +12,9 @@ export function Layout(){
 
             {/* Mid */}
             <main className="mid">
-                <Outlet/>
+            <div className="content-wrapper">
+          <Outlet />
+             </div>
             </main>
 
             {/* Footer */}

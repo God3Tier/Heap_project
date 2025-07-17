@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export function Login(){
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const userDTO = {
@@ -13,7 +14,7 @@ export function Login(){
 
     const loginRequest = async() => {
         try {
-            const postResponse = await axios.post('http://localhost:8080/api/auth/login', userDTO);
+            const postResponse = await axios.post(`${backendUrl}/api/auth/login`, userDTO);
             console.log('POST success:', postResponse.data);
 
             // save token/username/userid to local storage
@@ -23,7 +24,8 @@ export function Login(){
             console.log('Token Saved', postResponse.data.token);
             console.log('Username Saved', postResponse.data.username);
             console.log('UserID Saved', postResponse.data.userId);
-            setAllow("Logged in");
+            window.location.href = "/";
+            
 
         } catch (error) {
             console.error('Error:', error);
@@ -35,24 +37,29 @@ export function Login(){
 
     };
 
-    const logout = async() => {
-        localStorage.clear();
-        console.log("Cleared local storage");
-    };
-
     return(
-        <div className="login-body">
-            <h1>Login page</h1>
-            <form className="login-form">
-                <input type="text" id="username" name="username" value={username} placeholder="Enter your username" onChange={(e) => setUsername(e.target.value)}></input>
-                <input type="password" id="passHash" name="passHash" value={password} placeholder="Enter your password" onChange={(e) => setPassword(e.target.value)}></input>
-                {/* <button onClick={loginRequest}>Sign Up</button> */}
-                {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
-            </form>
-            <p>{allow}</p>
-            <button onClick={loginRequest}>Login</button>
-            {/* <button onClick={(console.log(userDTO))}>test Up</button> */}
-            <button onClick={logout}>Logout</button>
-        </div>
+      <div className="login-body">
+        <h1>Login page</h1>
+        <form className="login-form" onSubmit={(e) => e.preventDefault()}>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            placeholder="Enter your username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            id="passHash"
+            name="passHash"
+            value={password}
+            placeholder="Enter your password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button onClick={loginRequest}>Login</button>
+        </form>
+        <p>{allow}</p>
+      </div>
     )
 }
