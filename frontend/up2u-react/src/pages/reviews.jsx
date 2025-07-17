@@ -53,14 +53,16 @@ export function Reviews(){
     // to post reviews
     const postReview = async() =>{
         try{
-            console.log(reviewDTO);
-            const postResponse = await axios.post('http://localhost:8080/user/add_review', reviewDTO, {
+            // console.log(reviewDTO);
+            const postResponse = await axios.post(`${backendUrl}/user/add_review`, reviewDTO, {
             headers: {Authorization: `Bearer ${token}`}});
-            const updateStall = await axios.post(`http://localhost:8080/api/update_stall/${stallId}`);
-            console.log('POST success:', postResponse.data);
+            const updateStall = await axios.post(`${backendUrl}/api/update_stall/${stallId}`);
+            // console.log('POST success:', postResponse.data);
+            alert("Review Given");
+            window.location.reload();
 
         } catch(error){
-            console.error('Error', error);
+            // console.error('Error', error);
         }
     };
 

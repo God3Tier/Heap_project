@@ -13,20 +13,21 @@ export function Login(){
 
     const loginRequest = async() => {
         try {
-            const postResponse = await axios.post('http://localhost:8080/api/auth/login', userDTO);
-            console.log('POST success:', postResponse.data);
+            const postResponse = await axios.post(`${backendUrl}/api/auth/login`, userDTO);
+            // console.log('POST success:', postResponse.data);
 
             // save token/username/userid to local storage
             localStorage.setItem('token', postResponse.data.token);
             localStorage.setItem('username', postResponse.data.username);
             localStorage.setItem('userId', postResponse.data.userId);
-            console.log('Token Saved', postResponse.data.token);
-            console.log('Username Saved', postResponse.data.username);
-            console.log('UserID Saved', postResponse.data.userId);
-            setAllow("Logged in");
+            // console.log('Token Saved', postResponse.data.token);
+            // console.log('Username Saved', postResponse.data.username);
+            // console.log('UserID Saved', postResponse.data.userId);
+            window.location.href = "/";
+            
 
         } catch (error) {
-            console.error('Error:', error);
+            // console.error('Error:', error);
             if(error.status == '401'){
                 console.log("Wrong password");
                 setAllow("Wrong password");

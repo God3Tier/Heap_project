@@ -15,11 +15,17 @@ export function SignUp(){
 
     const signupRequest = async() => {
         try {
-            const postResponse = await axios.post('http://localhost:8080/user/create_user', userDTO);
-                console.log('POST success:', postResponse.data);
-
+            const postResponse = await axios.post(`${backendUrl}/user/create_user`, userDTO);
+            // console.log('POST success:', postResponse.data);
+            setAllow("Account Created");
         } catch (error) {
-            console.error('Error:', error);
+            // console.error('Error:', error);
+            if (error.response?.status === 500) {
+                console.log("Username already in use");
+                setAllow("Username already in use");
+            } else {
+                setAllow("Signup failed");
+            }
         }
 
     };

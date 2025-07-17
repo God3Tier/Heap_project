@@ -1,4 +1,5 @@
 import '../style/AboutUs.css'
+import logo from '../assets/logo.png'
 
 export function AboutUs(){
     return(
