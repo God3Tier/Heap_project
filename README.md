@@ -5,7 +5,7 @@ based on the MRTs near smu. We allow students to filter by average price, cuisin
 rating from other users and location. 
 
 ## How to use on the cloud 
-Go to "Deployment link" and experience it for yourself now
+Go to [our webpage](https://up2u-alpha.vercel.app 'up2u to find out') and experience it for yourself now
 
 ## How to use locally
 

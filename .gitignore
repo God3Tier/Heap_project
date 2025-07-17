@@ -16,3 +16,4 @@ DepricatedStallRepo.txt
 
 .vercel
 .env*.local
+target
