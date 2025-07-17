@@ -1,0 +1,62 @@
+.list-reviews-body {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fffaf0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.list-reviews-body label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.list-reviews-body button {
+  padding: 10px 20px;
+  background-color: #fbbf24;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 12px;
+}
+
+.list-reviews-body button:hover {
+  background-color: #f59e0b;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.search button {
+  width: auto;
+}
+thead tr {
+  background-color: #facc15;
+}
+
+th,
+td {
+  border: 1px solid #191b1e;
+  align-self: center;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  font-weight: bold;
+  color: #333;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

@@ -1,6 +1,38 @@
-.home-body {
-  min-height: 100vh;
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 60px 40px;
+  border-radius: 20px;
+  max-width: 1200px;
+  margin: 40px auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1f1f1f;
+  line-height: 1.3;
+  margin: 0;
+  /* flex: 1; */
+  /* max-width: 80%; */
+}
+
+.hero-text .highlight {
+  color: #facc15;
+}
+
+.hero-text .username {
+  color: #191b1e;
+}
+
+.hero-image img {
+  max-width: 400px;
   width: 100%;
+  height: auto;
+  border-radius: 20px;
 }
 
 .home-body {
