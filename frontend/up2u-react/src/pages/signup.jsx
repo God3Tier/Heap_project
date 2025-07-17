@@ -35,32 +35,33 @@ export function SignUp() {
 
     return (
         <div className="signup-container">
-            <div className="left-panel">
-                <img src={background} alt="Food" />
-            </div>
-            <div className="right-panel">
-                <img className="logo" src={logo} alt="UP2U Logo" />
-
-                <label htmlFor="username">Username</label>
-                <input 
-                    type="text" 
-                    id="username" 
-                    value={username}
-                    placeholder="Enter your username"
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-
-                <label htmlFor="passHash">Password</label>
-                <input 
-                    type="password" 
-                    id="passHash" 
-                    value={passHash}
-                    placeholder="Enter your password"
-                    onChange={(e) => setPassHash(e.target.value)}
-                />
-                <button className="continue-btn" onClick={signupRequest}>Continue</button>
-                <p>{allow}</p>
-            </div>
+          <div className="left-panel">
+            <img src={background} alt="Food" className="left-image" />
+          </div>
+          <div className="right-panel">
+            <img className="logo" src={logo} alt="UP2U Logo" />
+      
+            <label htmlFor="username">Username</label>
+            <input 
+              type="text" 
+              id="username" 
+              value={username}
+              placeholder="Enter your username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+      
+            <label htmlFor="passHash">Password</label>
+            <input 
+              type="password" 
+              id="passHash" 
+              value={passHash}
+              placeholder="Enter your password"
+              onChange={(e) => setPassHash(e.target.value)}
+            />
+      
+            <button className="continue-btn" onClick={signupRequest}>Continue</button>
+            <p>{allow}</p>
+          </div>
         </div>
-    );
-}
+      );
+    }      
