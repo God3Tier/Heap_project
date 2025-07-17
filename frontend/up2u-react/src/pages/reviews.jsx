@@ -51,20 +51,45 @@ export function Reviews(){
         }
     };
 
-    return(
+    return (
         <>
-            {isLoggedIn ? (<div className="reviews-body">
+          {isLoggedIn ? (
+            <div className="reviews-body">
+              {/* Heading */}
+              <h2 className="page-title">Leave a Review</h2>
+      
+              {/* Review Form Section */}
+              <section className="review-form-section">
                 <form>
-                    <label>User:</label><input value={user} disabled/><br/>
-                    <StallsDropdown onChange={e => setStallId(e.target.value)}/><br/>
-
-                    <RatingDropdown onChange={e => setRating(e.target.value)}/><br/>
-
+                  <div className="form-group">
+                    <label>User:</label>
+                    <input value={user} disabled />
+                  </div>
+      
+                  <div className="form-group">
+                    <StallsDropdown onChange={e => setStallId(e.target.value)} />
+                  </div>
+      
+                  <div className="form-group">
+                    <RatingDropdown onChange={e => setRating(e.target.value)} />
+                  </div>
+      
+                  <div className="form-group">
                     <label>Review:</label>
-                    <textarea onChange={e => setReviewDescription(e.target.value)}></textarea><br/>
+                    <textarea onChange={e => setReviewDescription(e.target.value)}></textarea>
+                  </div>
+      
+                  <button type="button" onClick={postReview}>Give Review</button>
                 </form>
-                <button onClick={postReview}>Give Review</button>
-            </div>):(<>You have no access to this page <button onClick={home}>Back to Home</button></>)}
+              </section>
+          
+            </div>
+          ) : (
+            <>
+              You have no access to this page
+              <button onClick={home}>Back to Home</button>
+            </>
+          )}
         </>
-    )
-}
+      );
+}      
