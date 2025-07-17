@@ -24,23 +24,23 @@ export function AboutUs(){
                     <div className="row1">
                         <div className="person">
                             <img src={logo} alt="UP2U Logo"/>
-                            <strong>Joseph Yau</strong>
-                            <span>Backend Terrorist</span>
+                            <strong>Person 1</strong>
+                            <span>Human</span>
                         </div>
                         <div className="person">
                             <img src={logo} alt="UP2U Logo"/>
-                            <strong>Clemira Jenkins</strong>
-                            <span>Frontend Terrorist</span>
+                            <strong>Person 2</strong>
+                            <span>Human</span>
                         </div>
                         <div className="person">
                             <img src={logo} alt="UP2U Logo"/>
-                            <strong>Orvin Filbert</strong>
-                            <span>Pure Terrorist</span>
+                            <strong>Person 3</strong>
+                            <span>Pure Human</span>
                         </div>
                         <div className="person">
                             <img src={logo} alt="UP2U Logo"/>
-                            <strong>Yong Huey</strong>
-                            <span>Burden</span>
+                            <strong>Person 4</strong>
+                            <span>Artifical Intelligence</span>
                         </div>
                     </div>
                 </div>
