@@ -15,6 +15,8 @@ Users can filter restaurants based on:
 ## 🌐 How to Use on the Cloud
 
 Head over to [our live webpage](https://up2u-alpha.vercel.app 'up2u to find out') and experience it for yourself!
+Please do note that we are poor and do not have the ability to buy for a 24/7 service. Wait 3 - 6 mins if you cannot 
+get a response immediately when requesting a function tkyu :-) 
 
 ---
 
